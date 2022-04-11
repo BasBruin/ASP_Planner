@@ -9,14 +9,14 @@ namespace BusnLogicBW
 {
     public class Gebruiker
     {
-        private readonly int ID;
-        private readonly string Naam;
-        private readonly string GameNaam;
-        private readonly string PlannerNaam;
-        private readonly string Email;
-        private readonly string Rank1s;
-        private readonly string Rank2s;
-        private readonly string Rank3s;
+        public readonly int ID;
+        public readonly string Naam;
+        public readonly string GameNaam;
+        public readonly string PlannerNaam;
+        public readonly string Email;
+        public readonly string Rank1s;
+        public readonly string Rank2s;
+        public readonly string Rank3s;
 
         public Gebruiker(int ID, string naam, string gameNaam, string plannerNaam, string email,
             string rank1s, string rank2s, string rank3s)
@@ -31,9 +31,27 @@ namespace BusnLogicBW
             this.Rank3s = rank3s;
         }
 
+        public Gebruiker(GebruikerDTO dto)
+        {
+            this.ID = dto.ID;
+            this.Naam = dto.Naam;
+            this.GameNaam = dto.GameNaam;
+            this.PlannerNaam = dto.PlannerNaam;
+            this.Email = dto.Email;
+            this.Rank1s = dto.Rank1s;
+            this.Rank2s = dto.Rank2s;
+            this.Rank3s = dto.Rank3s;
+        }
+
         public override string ToString()
         {
             return GameNaam;
+        }
+
+        internal GebruikerDTO GetDTO()
+        {
+            GebruikerDTO dto = new GebruikerDTO(ID, Naam, GameNaam, PlannerNaam, Email, Rank1s, Rank2s, Rank3s);
+            return dto;
         }
     }
 }

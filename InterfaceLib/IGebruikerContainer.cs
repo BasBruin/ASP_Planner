@@ -12,5 +12,6 @@ namespace InterfaceLib
         public int Create(GebruikerDTO gebruiker);
         public void Update(GebruikerDTO gebruiker);
         public void Delete(GebruikerDTO gebruiker);
+        public List<GebruikerDTO> GetAll();
     }
 }

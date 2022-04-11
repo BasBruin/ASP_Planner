@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusnLogicBW\BusnLogicBW.csproj" />
-    <ProjectReference Include="..\DALMemoryStore\DALMemoryStore.csproj" />
   </ItemGroup>
 
 </Project>

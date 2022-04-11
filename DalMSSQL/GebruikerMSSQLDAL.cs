@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using InterfaceLib;
 
 namespace DalMSSQL
@@ -21,7 +22,9 @@ namespace DalMSSQL
 
         public GebruikerDTO FindByID(int ID)
         {
-            throw new NotImplementedException();
+            reader = SQL.loadSQL("Select * FROM Gebruiker WHERE ID = '" + ID + "'");
+            reader.Read();
+            return new GebruikerDTO(reader.GetInt32("ID"), reader.GetString("Naam"), reader.GetString("GameNaam"), reader.GetString("UserName"), reader.GetString("Email"), reader.GetString("Rank1s"), reader.GetString("Rank2s"), reader.GetString("Rank3s"));
         }
 
         public void Update(GebruikerDTO gebruiker)
@@ -32,7 +35,7 @@ namespace DalMSSQL
         // Dit is voor mensen toevoegen aan team.
         public SqlDataReader GetAllGebruikers()
         {
-            string query = "SELECT * FROM Gebruiker WHERE ID != 1";
+            string query = "SELECT * FROM Gebruiker";
             SqlConnection databaseConnection = new SqlConnection(connString);
             SqlCommand cmd = new SqlCommand(query, databaseConnection);
             cmd.CommandTimeout = 60;
@@ -40,6 +43,17 @@ namespace DalMSSQL
             databaseConnection.Open();
             reader = cmd.ExecuteReader();
             return (reader);
+        }
+
+        public List<GebruikerDTO> GetAll()
+        {
+            List<GebruikerDTO> lijst = new List<GebruikerDTO>();
+            reader = SQL.loadSQL("SELECT * FROM Gebruiker");
+            while (reader.Read())
+            {
+                lijst.Add(new GebruikerDTO(reader.GetInt32("ID"), reader.GetString("Naam"), reader.GetString("GameNaam"), reader.GetString("UserName"), reader.GetString("Email"), reader.GetString("Rank1s"), reader.GetString("Rank2s"), reader.GetString("Rank3s")));
+            }
+            return lijst;
         }
     }
 }
