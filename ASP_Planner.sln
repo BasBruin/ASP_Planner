@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpdrachtDALBjörn", "OpdrachtDALBjörn\OpdrachtDALBjörn.csproj", "{660FD106-5D53-4445-959B-60FB7D4AEF7A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusnLogicBW", "BusnLogicBW\BusnLogicBW.csproj", "{96F3A61D-4536-45FD-8663-ECA36773257E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F3E4DAB9-6123-44E9-AC31-3E57D08922CA} = {F3E4DAB9-6123-44E9-AC31-3E57D08922CA}
@@ -26,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{660FD106-5D53-4445-959B-60FB7D4AEF7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{660FD106-5D53-4445-959B-60FB7D4AEF7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{660FD106-5D53-4445-959B-60FB7D4AEF7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{660FD106-5D53-4445-959B-60FB7D4AEF7A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96F3A61D-4536-45FD-8663-ECA36773257E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96F3A61D-4536-45FD-8663-ECA36773257E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96F3A61D-4536-45FD-8663-ECA36773257E}.Release|Any CPU.ActiveCfg = Release|Any CPU

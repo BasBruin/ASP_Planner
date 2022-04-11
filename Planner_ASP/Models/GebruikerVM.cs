@@ -22,5 +22,10 @@
             Rank2s = rank2s;
             Rank3s = rank3s;
         }
+
+        public GebruikerVM()
+        {
+
+        }
     }
 }

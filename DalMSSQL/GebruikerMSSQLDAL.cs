@@ -55,5 +55,49 @@ namespace DalMSSQL
             }
             return lijst;
         }
+
+        
+        /*public bool ControleerLogin(string gebruikersnaam, string wachtwoord)
+        {
+            SQL_Connection.Open();
+            SqlCommand command;
+            SqlDataReader dataReader;
+            string sql = "SELECT UserName FROM Gebruiker WHERE UserName = @gebruikersnaam AND WachtWoord = @wachtwoord";
+
+            command = new SqlCommand(sql, SQL_Connection.SqlConnectie);
+            command.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
+            command.Parameters.AddWithValue("@wachtwoord", wachtwoord);
+            dataReader = command.ExecuteReader();
+
+            bool returnValue = dataReader.HasRows;
+            SQL_Connection.Close();
+            return returnValue;
+        }*/
+
+        public GebruikerDTO FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord)
+        {
+            SQL_Connection.Open();
+            SqlCommand command;
+            string sql = "SELECT id FROM Gebruiker WHERE UserName = @gebruikersnaam AND WachtWoord = @wachtwoord";
+
+            command = new SqlCommand(sql, SQL_Connection.SqlConnectie);
+            command.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
+            command.Parameters.AddWithValue("@wachtwoord", wachtwoord);
+            object obj = command.ExecuteScalar();
+            if (obj == null)
+            {
+                SQL_Connection.Close();
+                return null;
+            }
+            else
+            {
+                SQL_Connection.Close();
+                string idstring = obj.ToString();
+                int id = Convert.ToInt32(idstring);
+                return FindByID(id);
+            }
+
+
+        }
     }
 }
