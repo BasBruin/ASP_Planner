@@ -7,7 +7,16 @@ namespace Planner_ASP.Controllers
 {
     public class LoginController : Controller
     {
-        GebruikerContainer gc = new(new GebruikerMSSQLDAL());
+        private GebruikerContainer gc = null;
+
+        private readonly IConfiguration _configuration;
+
+        public LoginController(IConfiguration ic)
+        {
+            _configuration = ic;
+            gc = new GebruikerContainer(new GebruikerMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
+        }
+
 
         [HttpGet]
         public IActionResult Index()

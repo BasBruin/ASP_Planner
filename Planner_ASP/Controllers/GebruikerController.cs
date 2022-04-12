@@ -7,15 +7,23 @@ namespace Planner_ASP.Controllers
 {
     public class GebruikerController : Controller
     {
-        GebruikerContainer gc = new GebruikerContainer(new GebruikerMSSQLDAL());
+        private GebruikerContainer gc = null;
 
-        public IActionResult Index() // localhost/verkoper
+        private readonly IConfiguration _configuration;
+
+        public GebruikerController(IConfiguration ic)
+        {
+            _configuration = ic;
+            gc = new GebruikerContainer(new GebruikerMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
+        }
+
+        public IActionResult Index() // localhost/gebruiker
         {
             List<Gebruiker> gebruikers = new(gc.GetAll());
             List<GebruikerVM> vms = new();
-            foreach(Gebruiker g in gebruikers)
+            foreach (Gebruiker g in gebruikers)
             {
-                vms.Add(new GebruikerVM(g.ID, g.Naam, g.GameNaam, g.PlannerNaam, g.Email, g.Rank1s, g.Rank2s, g.Rank3s));
+                vms.Add(new GebruikerVM(g));
             }
             return View(vms);
         }
@@ -23,7 +31,7 @@ namespace Planner_ASP.Controllers
         public IActionResult Detail(int id)
         {
             Gebruiker g = gc.FindByID(id);
-            GebruikerVM vm = new(g.ID, g.Naam, g.GameNaam, g.PlannerNaam, g.Email, g.Rank1s, g.Rank2s, g.Rank3s);
+            GebruikerVM vm = new(g);
             return View(vm);
         }
     }

@@ -6,11 +6,18 @@ namespace DalMSSQL
 {
     public class GebruikerMSSQLDAL : IGebruikerContainer
     {
-        string connString = "Data Source=mssqlstud.fhict.local;Initial Catalog=dbi487790;Persist Security Info=True;User ID=dbi487790;Password=Welkom12";
-        SQL_Connection SQL = new();
+        private readonly string connString;
+        SQL_Connection SQL = null;
         SqlDataReader reader;
 
-        public int Create(GebruikerDTO gebruiker)
+
+        public GebruikerMSSQLDAL(string cs)
+        {
+            connString = cs;
+            SQL = new SQL_Connection(connString);
+        }
+
+        public int Create(GebruikerDTO dto)
         {
             throw new NotImplementedException();
         }
@@ -35,13 +42,7 @@ namespace DalMSSQL
         // Dit is voor mensen toevoegen aan team.
         public SqlDataReader GetAllGebruikers()
         {
-            string query = "SELECT * FROM Gebruiker";
-            SqlConnection databaseConnection = new SqlConnection(connString);
-            SqlCommand cmd = new SqlCommand(query, databaseConnection);
-            cmd.CommandTimeout = 60;
-            SqlDataReader reader;
-            databaseConnection.Open();
-            reader = cmd.ExecuteReader();
+            reader = SQL.loadSQL("SELECT * FROM Gebruiker");
             return (reader);
         }
 
@@ -56,48 +57,29 @@ namespace DalMSSQL
             return lijst;
         }
 
-        
-        /*public bool ControleerLogin(string gebruikersnaam, string wachtwoord)
-        {
-            SQL_Connection.Open();
-            SqlCommand command;
-            SqlDataReader dataReader;
-            string sql = "SELECT UserName FROM Gebruiker WHERE UserName = @gebruikersnaam AND WachtWoord = @wachtwoord";
-
-            command = new SqlCommand(sql, SQL_Connection.SqlConnectie);
-            command.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
-            command.Parameters.AddWithValue("@wachtwoord", wachtwoord);
-            dataReader = command.ExecuteReader();
-
-            bool returnValue = dataReader.HasRows;
-            SQL_Connection.Close();
-            return returnValue;
-        }*/
-
         public GebruikerDTO FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord)
         {
-            SQL_Connection.Open();
+            SqlConnection connection = new SqlConnection(connString);
+            connection.Open();
             SqlCommand command;
             string sql = "SELECT id FROM Gebruiker WHERE UserName = @gebruikersnaam AND WachtWoord = @wachtwoord";
 
-            command = new SqlCommand(sql, SQL_Connection.SqlConnectie);
+            command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
             command.Parameters.AddWithValue("@wachtwoord", wachtwoord);
             object obj = command.ExecuteScalar();
             if (obj == null)
             {
-                SQL_Connection.Close();
+                connection.Close();
                 return null;
             }
             else
             {
-                SQL_Connection.Close();
+                connection.Close();
                 string idstring = obj.ToString();
                 int id = Convert.ToInt32(idstring);
                 return FindByID(id);
             }
-
-
         }
     }
 }

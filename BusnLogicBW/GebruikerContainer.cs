@@ -55,11 +55,11 @@ namespace BusnLogicBW
         public Gebruiker FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord)
         {
             GebruikerDTO dto = container.FindByUsernameAndPassword(gebruikersnaam, wachtwoord);
-            if(dto == null)
+            if (dto == null)
             {
                 return null;
             }
-            return new Gebruiker(dto);   
+            return new Gebruiker(dto);
         }
     }
 }
