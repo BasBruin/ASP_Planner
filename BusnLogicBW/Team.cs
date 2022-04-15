@@ -12,10 +12,10 @@ namespace BusnLogicBW
 {
     public class Team
     {
-        private int ID;
-        private string Naam;
-        private string Beschrijving;
-        private string Plaatje;
+        public readonly int ID;
+        public readonly string Naam;
+        public readonly string Beschrijving;
+        public readonly string Plaatje;
         
         public Team(int id, string naam, string beschrijving)
         {
@@ -29,6 +29,14 @@ namespace BusnLogicBW
             this.Naam = naam;
             this.Beschrijving = beschrijving;
             this.Plaatje = plaatje;
+        }
+
+        public Team(TeamDTO dto)
+        {
+            this.ID = dto.ID;
+            this.Naam = dto.Naam;
+            this.Beschrijving = dto.Beschrijving;
+            this.Plaatje = dto.Plaatje;
         }
 
         public override string? ToString()

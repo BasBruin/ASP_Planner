@@ -36,7 +36,9 @@ namespace Planner_ASP.Controllers
                 }
                 else
                 {
-                    return Content($"Hallo {g}");
+                    HttpContext.Session.SetString("ID", g.ID.ToString());
+                    HttpContext.Session.SetString("Naam", g.Naam);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return Content("Niet alle velden zijn gevuld");

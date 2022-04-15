@@ -5,13 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using InterfaceLib;
+using System.Data;
 
 namespace DalMSSQL
 {
     public class TeamMSSQLDAL : ITeamContainer
     {
-        SQL_Connection SQL = new();
+        private readonly string connString;
+        SQL_Connection SQL = null;
         SqlDataReader reader;
+
+        public TeamMSSQLDAL(string cs)
+        {
+            connString = cs;
+            SQL = new SQL_Connection(connString);
+        }
 
         public int Create(TeamDTO team)
         {
@@ -30,6 +38,17 @@ namespace DalMSSQL
             reader = SQL.loadSQL("SELECT ID, Naam, Beschrijving FROM Team WHERE ID = '" + ID + "'");
             TeamDTO dTO = new(ID, reader.GetString(1), reader.GetString(2));
             return dTO;
+        }
+
+        public List<TeamDTO> GetAll()
+        {
+            List<TeamDTO> lijst = new List<TeamDTO>();
+            reader = SQL.loadSQL("SELECT * FROM Team");
+            while (reader.Read())
+            {
+                lijst.Add(new TeamDTO(reader.GetInt32("ID"), reader.GetString("Naam"), reader.GetString("Beschrijving")));
+            }
+            return lijst;
         }
 
         public void Update(TeamDTO team)

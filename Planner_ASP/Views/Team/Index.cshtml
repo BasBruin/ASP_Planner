@@ -1,0 +1,10 @@
+﻿@model List<TeamVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+Hier komt een lijst met gebruikers. <br>
+@foreach(TeamVM vm in Model)
+{
+    <a asp-action=Detail asp-route-id=@vm.ID>@vm.Naam</a><br />
+}
