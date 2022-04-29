@@ -1,25 +1,51 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using InterfaceLib;
+using Org.BouncyCastle.Crypto.Generators;
 
 namespace DalMSSQL
 {
     public class GebruikerMSSQLDAL : IGebruikerContainer
     {
         private readonly string connString;
-        SQL_Connection SQL = null;
+        DatabaseUtility SQL = null;
         SqlDataReader reader;
-
+        SqlConnection connection = null;
 
         public GebruikerMSSQLDAL(string cs)
         {
             connString = cs;
-            SQL = new SQL_Connection(connString);
+            SQL = new DatabaseUtility(connString);
+            SqlConnection connection = new SqlConnection(connString);
         }
 
-        public int Create(GebruikerDTO dto)
+        public int Create(GebruikerDTO dto, string wachtwoord)
         {
-            throw new NotImplementedException();
+            SqlCommand cmd;
+            string sql = "INSERT INTO Gebruiker(Naam, UserName, WachtWoord, GameNaam, Email, Rank1s, Rank2s, Rank3s) output Gebruiker.ID Values(" +
+                "@Naam," +
+                "@UserName," +
+                "@Wachtwoord," +
+                "@GameNaam," +
+                "@Email," +
+                "@Rank1s," +
+                "@Rank2s," +
+                "@Rank3s)";
+
+            cmd = new SqlCommand(sql, connection);
+
+            string hash = BCrypt.Net.BCrypt.EnhancedHashPassword(wachtwoord, 13);
+
+            cmd.Parameters.AddWithValue("@Naam", dto.Naam);
+            cmd.Parameters.AddWithValue("@UserName", dto.PlannerNaam);
+            cmd.Parameters.AddWithValue("@WachtWoord", hash);
+            cmd.Parameters.AddWithValue("@GameNaam", dto.GameNaam);
+            cmd.Parameters.AddWithValue("@Email", dto.Email);
+            cmd.Parameters.AddWithValue("@Rank1s", dto.Rank1s);
+            cmd.Parameters.AddWithValue("@Rank2s", dto.Rank2s);
+            cmd.Parameters.AddWithValue("@Rank3s", dto.Rank3s);
+
+            return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
         public void Delete(GebruikerDTO gebruiker)
@@ -36,7 +62,7 @@ namespace DalMSSQL
 
         public void Update(GebruikerDTO gebruiker)
         {
-            throw new NotImplementedException();
+            reader = SQL.loadSQL("UPDATE Gebruiker SET Naam = '" + gebruiker.Naam + "', UserName = '" + gebruiker.PlannerNaam + "', GameNaam = '" + gebruiker.GameNaam + "', Email = '" + gebruiker.Email + "', Rank1s = '" + gebruiker.Rank1s + "', Rank2s = '" + gebruiker.Rank2s + "', Rank3s = '" + gebruiker.Rank3s + "', WHERE ID = '" + gebruiker.ID +"'");
         }
 
         // Dit is voor mensen toevoegen aan team.
@@ -59,7 +85,6 @@ namespace DalMSSQL
 
         public GebruikerDTO FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord)
         {
-            SqlConnection connection = new SqlConnection(connString);
             connection.Open();
             SqlCommand command;
             string sql = "SELECT id FROM Gebruiker WHERE UserName = @gebruikersnaam AND WachtWoord = @wachtwoord";

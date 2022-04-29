@@ -48,7 +48,7 @@ namespace BusnLogicBW
             return GameNaam;
         }
 
-        internal GebruikerDTO GetDTO()
+        public GebruikerDTO GetDTO()
         {
             GebruikerDTO dto = new GebruikerDTO(ID, Naam, GameNaam, PlannerNaam, Email, Rank1s, Rank2s, Rank3s);
             return dto;

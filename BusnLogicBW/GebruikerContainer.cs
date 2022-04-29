@@ -23,10 +23,10 @@ namespace BusnLogicBW
             return new Gebruiker(dto);
         }
 
-        public void Create(Gebruiker g)
+        public void Create(Gebruiker g, string wachtwoord)
         {
             GebruikerDTO dto = g.GetDTO();
-            container.Create(dto);
+            container.Create(dto, wachtwoord);
         }
 
         public void Update(Gebruiker g)

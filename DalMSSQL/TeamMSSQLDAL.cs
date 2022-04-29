@@ -12,13 +12,13 @@ namespace DalMSSQL
     public class TeamMSSQLDAL : ITeamContainer
     {
         private readonly string connString;
-        SQL_Connection SQL = null;
+        DatabaseUtility SQL = null;
         SqlDataReader reader;
 
         public TeamMSSQLDAL(string cs)
         {
             connString = cs;
-            SQL = new SQL_Connection(connString);
+            SQL = new DatabaseUtility(connString);
         }
 
         public int Create(TeamDTO team)

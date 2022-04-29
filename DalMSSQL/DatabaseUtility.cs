@@ -7,16 +7,16 @@ using System.Data.SqlClient;
 
 namespace DalMSSQL
 {
-    public class SQL_Connection
+    public class DatabaseUtility
     {
         private readonly string connString;
 
-        public SQL_Connection(string cs)
+        public DatabaseUtility(string cs)
         {
             connString = cs;
         }
 
-        public SQL_Connection()
+        public DatabaseUtility()
         {
 
         }
