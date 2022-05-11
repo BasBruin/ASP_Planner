@@ -20,10 +20,10 @@ namespace Planner_ASP.Controllers
         public IActionResult Index() // localhost/gebruiker
         {
             List<Gebruiker> gebruikers = new(gc.GetAll());
-            List<GebruikerVM> vms = new();
+            List<GebruikerViewModel> vms = new();
             foreach (Gebruiker g in gebruikers)
             {
-                vms.Add(new GebruikerVM(g));
+                vms.Add(new GebruikerViewModel(g));
             }
             return View(vms);
         }
@@ -31,7 +31,7 @@ namespace Planner_ASP.Controllers
         public IActionResult Detail(int id)
         {
             Gebruiker g = gc.FindByID(id);
-            GebruikerVM vm = new(g);
+            GebruikerViewModel vm = new(g);
             return View(vm);
         }
     }

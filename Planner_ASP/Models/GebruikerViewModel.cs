@@ -3,9 +3,9 @@ using InterfaceLib;
 
 namespace Planner_ASP.Models
 {
-    public class GebruikerVM
+    public class GebruikerViewModel
     {
-        public int ID;
+        public int? ID;
         public string Naam;
         public string ?GameNaam;
         public string ?PlannerNaam;
@@ -14,9 +14,9 @@ namespace Planner_ASP.Models
         public string ?Rank2s;
         public string ?Rank3s;
 
-        public GebruikerVM(int iD, string naam, string? gameNaam, string? plannerNaam, string? email, string? rank1s, string? rank2s, string? rank3s)
+        public GebruikerViewModel(string naam, string? gameNaam, string? plannerNaam, string? email, string? rank1s, string? rank2s, string? rank3s, int? Id = null)
         {
-            ID = iD;
+            ID = Id;
             Naam = naam;
             GameNaam = gameNaam;
             PlannerNaam = plannerNaam;
@@ -26,7 +26,7 @@ namespace Planner_ASP.Models
             Rank3s = rank3s;
         }
 
-        public GebruikerVM(Gebruiker g)
+        public GebruikerViewModel(Gebruiker g)
         {
             this.ID = g.ID;
             this.Naam = g.Naam;
@@ -38,7 +38,7 @@ namespace Planner_ASP.Models
             this.Rank3s = g.Rank3s;
         }
 
-        public GebruikerVM()
+        public GebruikerViewModel()
         {
 
         }

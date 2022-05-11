@@ -9,7 +9,7 @@ namespace BusnLogicBW
 {
     public class Gebruiker
     {
-        public readonly int ID;
+        public readonly int? ID;
         public readonly string Naam;
         public readonly string GameNaam;
         public readonly string PlannerNaam;
@@ -18,8 +18,8 @@ namespace BusnLogicBW
         public readonly string Rank2s;
         public readonly string Rank3s;
 
-        public Gebruiker(int ID, string naam, string gameNaam, string plannerNaam, string email,
-            string rank1s, string rank2s, string rank3s)
+        public Gebruiker(string naam, string gameNaam, string plannerNaam, string email,
+            string rank1s, string rank2s, string rank3s, int? ID = null)
         {
             this.ID = ID;
             this.Naam = naam;
@@ -50,7 +50,7 @@ namespace BusnLogicBW
 
         public GebruikerDTO GetDTO()
         {
-            GebruikerDTO dto = new GebruikerDTO(ID, Naam, GameNaam, PlannerNaam, Email, Rank1s, Rank2s, Rank3s);
+            GebruikerDTO dto = new(Naam, GameNaam, PlannerNaam, Email, Rank1s, Rank2s, Rank3s, ID);
             return dto;
         }
     }

@@ -14,5 +14,6 @@ namespace InterfaceLib
         public void Delete(GebruikerDTO gebruiker);
         public List<GebruikerDTO> GetAll();
         public GebruikerDTO FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord);
+        public bool UsernameExists(string Username);
     }
 }

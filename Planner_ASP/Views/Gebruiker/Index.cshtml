@@ -1,11 +1,11 @@
-﻿@model List<GebruikerVM>
+﻿@model List<GebruikerViewModel>
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Hallo</h1>
 Hier komt een lijst met gebruikers. <br>
-@foreach(GebruikerVM vm in Model)
+@foreach(GebruikerViewModel vm in Model)
 {
     <a asp-action=Detail asp-route-id=@vm.ID>@vm.Naam</a><br />
 }

@@ -1,0 +1,39 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-flex justify-content-center">
+
+    <form asp-action=Index method="POST">
+        <table class="tabel">
+            <tr>
+                <td>Naam</td>
+                <td><input asp-for=Naam></td>
+            </tr>
+            <tr>
+                <td>Gebruikersnaam</td>
+                <td><input asp-for=PlannerNaam></td>
+            </tr>
+            <tr>
+                <td>In-Game Gebruikersnaam</td>
+                <td><input asp-for=GameNaam></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input asp-for=Email></td>
+            </tr>
+            <tr>
+                <td>Wachtwoord</td>
+                <td><input asp-for=Wachtwoord type="password"></td>
+            </tr>
+            <tr>
+                <td>Herhaal Wachtwoord</td>
+                <td><input asp-for=WachtwoordHerhalen type="password"></td>
+            </tr>
+        </table>
+        <div class="d-flex justify-content-center">
+        <input type="submit" value="Register!"></input>
+        </div>
+    </form>
+</div>

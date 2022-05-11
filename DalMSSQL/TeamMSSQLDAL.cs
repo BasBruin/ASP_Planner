@@ -42,7 +42,7 @@ namespace DalMSSQL
 
         public List<TeamDTO> GetAll()
         {
-            List<TeamDTO> lijst = new List<TeamDTO>();
+            List<TeamDTO> lijst = new();
             reader = SQL.loadSQL("SELECT * FROM Team");
             while (reader.Read())
             {
@@ -53,7 +53,7 @@ namespace DalMSSQL
 
         public void Update(TeamDTO team)
         {
-            throw new NotImplementedException();
+            SQL.loadSQL("UPDATE Team SET Naam = '" + team.Naam + "', Beschrijving = '" + team.Beschrijving + "', Plaatje = '" + team.Plaatje + "' WHERE ID = '" + team.ID + "'");
         }
     }
 }

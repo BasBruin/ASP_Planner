@@ -2,28 +2,28 @@
 
 namespace Planner_ASP.Models
 {
-    public class TeamVM
+    public class TeamViewModel
     {
         public readonly int ID;
         public readonly string Naam;
         public readonly string Beschrijving;
         public readonly string Plaatje;
 
-        public TeamVM(int id, string naam, string beschrijving)
+        public TeamViewModel(int id, string naam, string beschrijving)
         {
             this.ID = id;
             this.Naam = naam;
             this.Beschrijving = beschrijving;
         }
 
-        public TeamVM(string naam, string beschrijving, string plaatje)
+        public TeamViewModel(string naam, string beschrijving, string plaatje)
         {
             this.Naam = naam;
             this.Beschrijving = beschrijving;
             this.Plaatje = plaatje;
         }
 
-        public TeamVM(Team t)
+        public TeamViewModel(Team t)
         {
             this.ID = t.ID;
             this.Naam = t.Naam;
@@ -31,7 +31,7 @@ namespace Planner_ASP.Models
             this.Plaatje = t.Plaatje;
         }
 
-        public TeamVM()
+        public TeamViewModel()
         {
 
         }

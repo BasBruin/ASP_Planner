@@ -21,10 +21,10 @@ namespace Planner_ASP.Controllers
         public IActionResult Index() // localhost/team
         {
             List<Team> teams = new(tc.GetAll());
-            List<TeamVM> vms = new();
+            List<TeamViewModel> vms = new();
             foreach (Team t in teams)
             {
-                vms.Add(new TeamVM(t));
+                vms.Add(new TeamViewModel(t));
             }
             return View(vms);
         }

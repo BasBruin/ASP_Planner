@@ -23,8 +23,8 @@ namespace DalMSSQL
 
         public SqlDataReader loadSQL(string query)
         {
-            SqlConnection databaseConnection = new SqlConnection(connString);
-            SqlCommand cmd = new SqlCommand(query, databaseConnection);
+            SqlConnection databaseConnection = new(connString);
+            SqlCommand cmd = new(query, databaseConnection);
             cmd.CommandTimeout = 60;
             SqlDataReader reader;
             databaseConnection.Open();
