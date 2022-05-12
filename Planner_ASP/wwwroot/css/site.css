@@ -41,12 +41,13 @@ body {
 }
 
 .content {
-    right:0px;
-    position:absolute;
+    right: 0px;
+    position: absolute;
     text-align: center;
     border-style: solid;
     border-width: 1px;
-    height:81px;
+    height: 81px;
+
 }
 
     .content img {
@@ -54,4 +55,6 @@ body {
         
     }
 
-
+.navbar-right {
+   margin-right:100px;
+}

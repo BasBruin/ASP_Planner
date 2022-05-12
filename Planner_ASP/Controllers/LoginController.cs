@@ -44,5 +44,11 @@ namespace Planner_ASP.Controllers
             }
             return View();
         }
+
+        public IActionResult Uitloggen()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

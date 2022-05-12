@@ -25,16 +25,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Profiel" asp-action="Index">Profiel</a>
                         </li>
+                    </ul>
+                </div>
+                <div class="navbar-right">
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="Index">Registreren</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                            @if (Context.Session.GetString("Naam") == null)
+                            {
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="Index">Registreren</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+                            }
+                            else
+                            {
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Uitloggen">Uitloggen</a></li>
+                            }
                         </li>
                     </ul>
                 </div>
                 <div class="content">
-                    @if (Context.Session.GetString("ID") != null)
+                    @if (Context.Session.GetString("Naam") != null)
                     {
                         <a class="ribbon" asp-area="" asp-controller="Profiel" asp-action="Index"><img src="/img/user-profile.webp" class="ribbon"></a>
                     }
@@ -49,11 +58,6 @@
                         {
                             <p>@Context.Session.GetString("PlannerNaam")</p>
                         }
-                        else
-                        {
-                            <p>Login</p>
-                        }
-
                     </div>
                 </div>
             </div>
