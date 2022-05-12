@@ -32,16 +32,17 @@ namespace Planner_ASP.Controllers
                 Gebruiker g = gc.FindByUsernameAndPassword(loginVM.Gebruikersnaam, loginVM.Wachtwoord);
                 if (g == null)
                 {
-                    return Content("Gebruikersnaam of wachtwoord ongeldig");
+                    ViewData["Error"] = "Inloggegevens niet correct";
                 }
                 else
                 {
                     HttpContext.Session.SetString("ID", g.ID.ToString());
                     HttpContext.Session.SetString("Naam", g.Naam);
+                    HttpContext.Session.SetString("PlannerNaam", g.PlannerNaam);
                     return RedirectToAction("Index", "Home");
                 }
             }
-            return Content("Niet alle velden zijn gevuld");
+            return View();
         }
     }
 }

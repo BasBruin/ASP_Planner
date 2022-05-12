@@ -16,11 +16,7 @@ namespace Planner_ASP.Controllers
         public IActionResult Index()
         {
             string naam = HttpContext.Session.GetString("Naam");
-            if(naam == null)
-            {
-                return View();
-            }
-            return Content($"Hallo {naam}");
+            return View();
         }
 
         public IActionResult Privacy()

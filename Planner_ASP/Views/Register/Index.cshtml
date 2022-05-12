@@ -13,27 +13,51 @@
             </tr>
             <tr>
                 <td>Gebruikersnaam</td>
-                <td><input asp-for=PlannerNaam></td>
+                <td><input asp-for=PlannerNaam required></td>
             </tr>
+            <div class="col-md-12">
+            @if (ViewData["ErrorGebNaam"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["ErrorGebNaam"]
+                </div>
+            }
+            </div>
             <tr>
                 <td>In-Game Gebruikersnaam</td>
                 <td><input asp-for=GameNaam></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input asp-for=Email></td>
+                <td><input asp-for=Email placeholder="jsmith@example.com"></td>
             </tr>
+            <div class="col-md-12">
+            @if (ViewData["ErrorEmail"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["ErrorEmail"]
+                </div>
+            }
+            </div>
             <tr>
                 <td>Wachtwoord</td>
-                <td><input asp-for=Wachtwoord type="password"></td>
+                <td><input asp-for=Wachtwoord required type="password"></td>
             </tr>
             <tr>
                 <td>Herhaal Wachtwoord</td>
-                <td><input asp-for=WachtwoordHerhalen type="password"></td>
+                <td><input asp-for=WachtwoordHerhalen required type="password"></td>
             </tr>
+            <div class="col-md-12">
+            @if (ViewData["ErrorWW"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["ErrorWW"]
+                </div>
+            }
+            </div>
         </table>
         <div class="d-flex justify-content-center">
-        <input type="submit" value="Register!"></input>
+            <input type="submit" value="Register!"></input>
         </div>
     </form>
 </div>

@@ -100,7 +100,13 @@ namespace DalMSSQL
             return lijst;
         }
 
-        public GebruikerDTO FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord)
+        /// <summary>
+        /// Checkt bij inlog of de gebruikersnaam en wachtwoord kloppen.
+        /// </summary>
+        /// <param name="gebruikersnaam"></param>
+        /// <param name="wachtwoord"></param>
+        /// <returns>GebruikerDTO</returns>
+        public GebruikerDTO FindByUsernameAndPassword(string? gebruikersnaam, string? wachtwoord)
         {
             connection.Open();
             SqlCommand command;

@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Planner_ASP</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Planner_ASP<img src="/img/rocket-league.svg" alt="RocketLeagueLogo" class="logo"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,7 +23,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Profiel" asp-action="Index">Profiel</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="Index">Registreren</a>
@@ -32,6 +32,29 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
                         </li>
                     </ul>
+                </div>
+                <div class="content">
+                    @if (Context.Session.GetString("ID") != null)
+                    {
+                        <a class="ribbon" asp-area="" asp-controller="Profiel" asp-action="Index"><img src="/img/user-profile.webp" class="ribbon"></a>
+                    }
+
+                    else
+                    {
+                        <a class="ribbon" asp-area="" asp-controller="Login" asp-action="Index"><img src="/img/user-profile.webp" class="ribbon"></a>
+                    }
+
+                    <div class="d-flex justify-content-center">
+                        @if (Context.Session.GetString("ID") != null)
+                        {
+                            <p>@Context.Session.GetString("PlannerNaam")</p>
+                        }
+                        else
+                        {
+                            <p>Login</p>
+                        }
+
+                    </div>
                 </div>
             </div>
         </nav>

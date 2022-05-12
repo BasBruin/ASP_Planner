@@ -12,7 +12,6 @@ namespace Planner_ASP.Controllers
     public class RegisterController : Controller
     {
         DatabaseUtility DB = new();
-        SqlDataReader reader;
         private GebruikerContainer gc;
 
         private readonly IConfiguration _configuration;
@@ -44,13 +43,28 @@ namespace Planner_ASP.Controllers
                         HttpContext.Session.SetString("Naam", g.Naam);
                         return RedirectToAction("Index", "Home");
                     }
-                    return Content("Gebruikersnaam bestaat al!");
+                    else
+                    {
+                        ViewData["ErrorGebNaam"] = "Gebruikersnaam bestaat al!";
+                    }
                 }
-                return Content("Wachtwoord en Wachtwoord herhalen niet hetzelfde");
+                else
+                {
+                    ViewData["ErrorWW"] = "Wachtwoord en wachtwoord herhalen is niet hetzelfde!";
+                }
             }
-            return Content("Ongeldige Email");
+            else
+            {
+                ViewData["ErrorEmail"] = "Ongeldige email";
+            }
+            return View();
         }
 
+        /// <summary>
+        /// Checkt of het meegegeven email het patroon van een echt email volgt.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>bool</returns>
         public bool IsValidEmailAddress(string email)
         {
             if (new EmailAddressAttribute().IsValid(email))

@@ -1,22 +1,57 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .tabel {
-   
+    margin-bottom: 10px;
 }
+
+.logo {
+    width: 80px;
+    height: 80px;
+}
+
+.navbar {
+    height: 80px;
+}
+
+.save {
+    margin: 10px;
+}
+
+.ribbon {
+    right: 0px;
+    height: 50px;
+    width: 50px;
+}
+
+.content {
+    right:0px;
+    position:absolute;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    height:81px;
+}
+
+    .content img {
+        text-align: center;
+        
+    }
+
+
