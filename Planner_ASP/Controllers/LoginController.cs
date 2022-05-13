@@ -29,17 +29,28 @@ namespace Planner_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                Gebruiker g = gc.FindByUsernameAndPassword(loginVM.Gebruikersnaam, loginVM.Wachtwoord);
-                if (g == null)
+                try 
                 {
-                    ViewData["Error"] = "Inloggegevens niet correct";
+                    Gebruiker g = gc.FindByUsernameAndPassword(loginVM.Gebruikersnaam, loginVM.Wachtwoord);
+                    if (g == null)
+                    {
+                        ViewData["Error"] = "Inloggegevens niet correct";
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString("ID", g.ID.ToString());
+                        HttpContext.Session.SetString("Naam", g.Naam);
+                        HttpContext.Session.SetString("PlannerNaam", g.PlannerNaam);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-                else
+                catch(TemporaryExceptionDAL ex)
                 {
-                    HttpContext.Session.SetString("ID", g.ID.ToString());
-                    HttpContext.Session.SetString("Naam", g.Naam);
-                    HttpContext.Session.SetString("PlannerNaam", g.PlannerNaam);
-                    return RedirectToAction("Index", "Home");
+                    Console.WriteLine(ex.Message + "Please try again.");
+                }
+                catch (PermanentExceptionDAL ex)
+                {
+                    return Content(ex.Message);
                 }
             }
             return View();
