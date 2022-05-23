@@ -1,4 +1,5 @@
-﻿@model RegisterViewModel
+﻿@using BusnLogicBW
+@model RegisterViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -39,6 +40,39 @@
                 </div>
             }
             </div>
+            <tr>
+                <td>Rank1s</td>
+                <td>
+                    <select asp-for=Rank1s>
+                        @foreach (Rank rank in Model.ranks)
+                        {
+                            <option>@rank.RankName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Rank2s</td>
+                <td>
+                    <select asp-for=Rank2s>
+                        @foreach (Rank rank in Model.ranks)
+                        {
+                            <option>@rank.RankName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Rank3s</td>
+                <td>
+                    <select asp-for=Rank3s>
+                        @foreach (Rank rank in Model.ranks)
+                        {
+                            <option>@rank.RankName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
             <tr>
                 <td>Wachtwoord</td>
                 <td><input asp-for=Wachtwoord required type="password"></td>

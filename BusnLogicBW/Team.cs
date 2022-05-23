@@ -12,20 +12,14 @@ namespace BusnLogicBW
 {
     public class Team
     {
-        public readonly int ID;
+        public readonly int? ID;
         public readonly string Naam;
         public readonly string Beschrijving;
         public readonly string Plaatje;
         
-        public Team(int id, string naam, string beschrijving)
+        public Team(string? naam, string? beschrijving, string? plaatje, int? ID = null)
         {
-            this.ID = id;
-            this.Naam = naam;
-            this.Beschrijving = beschrijving;
-        }
-
-        public Team(string naam, string beschrijving, string plaatje)
-        {
+            this.ID = ID;
             this.Naam = naam;
             this.Beschrijving = beschrijving;
             this.Plaatje = plaatje;

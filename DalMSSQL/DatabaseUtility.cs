@@ -31,5 +31,7 @@ namespace DalMSSQL
             reader = cmd.ExecuteReader();
             return (reader);
         }
+
     }
 }
+

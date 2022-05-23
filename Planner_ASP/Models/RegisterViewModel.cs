@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusnLogicBW;
+using System.ComponentModel.DataAnnotations;
 
 namespace Planner_ASP.Models
 {
@@ -14,32 +15,16 @@ namespace Planner_ASP.Models
         public string Rank1s { get; set; }
         public string Rank2s { get; set; }
         public string Rank3s { get; set; }
+        public List<Rank> ranks { get; set; }
 
-        public enum Ranks
+        public RegisterViewModel(List<Rank> ranks)
         {
-            Unranked,
-            BronzeI,
-            BronzeII,
-            BronzeIII,
-            SilverI,
-            SilverII,
-            SilverIII,
-            GoldI,
-            GoldII,
-            GoldIII,
-            PlatinumI,
-            PlatinumII,
-            PlatinumIII,
-            DiamondI,
-            DiamondII,
-            DiamondIII,
-            ChampionI,
-            ChampionII,
-            ChampionIII,
-            GrandChampionI,
-            GrandChampionII,
-            GrandChampionIII,
-            SuperSonicLegend
+            this.ranks = ranks;
+        }
+
+        public RegisterViewModel()
+        {
+
         }
     }
 }

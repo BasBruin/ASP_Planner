@@ -38,7 +38,7 @@ namespace Planner_ASP.Controllers
                     }
                     else
                     {
-                        HttpContext.Session.SetString("ID", g.ID.ToString());
+                        HttpContext.Session.SetInt32("ID", (int)g.ID);
                         HttpContext.Session.SetString("Naam", g.Naam);
                         HttpContext.Session.SetString("PlannerNaam", g.PlannerNaam);
                         return RedirectToAction("Index", "Home");
@@ -47,10 +47,11 @@ namespace Planner_ASP.Controllers
                 catch(TemporaryExceptionDAL ex)
                 {
                     Console.WriteLine(ex.Message + "Please try again.");
+                    return Redirect("/tijderr.html");
                 }
                 catch (PermanentExceptionDAL ex)
                 {
-                    return Content(ex.Message);
+                    return Redirect("https://twitter.com/bassie00001");
                 }
             }
             return View();

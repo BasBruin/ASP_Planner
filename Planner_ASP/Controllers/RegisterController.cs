@@ -13,19 +13,23 @@ namespace Planner_ASP.Controllers
     {
         DatabaseUtility DB = new();
         private GebruikerContainer gc;
+        private RankContainer rc = null;
 
         private readonly IConfiguration _configuration;
 
         public RegisterController(IConfiguration ic)
         {
             _configuration = ic;
+            rc = new RankContainer(new RankMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
             gc = new GebruikerContainer(new GebruikerMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<Rank> ranks = rc.GetRanks();
+            RegisterViewModel vm = new(ranks);
+            return View(vm);
         }
 
         [HttpPost]
@@ -64,7 +68,7 @@ namespace Planner_ASP.Controllers
         /// Checkt of het meegegeven email het patroon van een echt email volgt.
         /// </summary>
         /// <param name="email"></param>
-        /// <returns>bool</returns>
+        /// <returns>true als het op een emailadres lijkt of false</returns>
         public bool IsValidEmailAddress(string email)
         {
             if (new EmailAddressAttribute().IsValid(email))

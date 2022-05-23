@@ -11,7 +11,11 @@ namespace DalMSSQL
         DatabaseUtility SQL = null;
         SqlDataReader reader;
         SqlConnection connection = null;
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cs">Hier geef je de connectiestring mee</param>
         public GebruikerMSSQLDAL(string cs)
         {
             connString = cs;
@@ -19,6 +23,11 @@ namespace DalMSSQL
             connection = new SqlConnection(connString);
         }
 
+        /// <summary>
+        /// Kijkt of de gebruikersnaam die je meegeeft al in de database bestaat of niet.
+        /// </summary>
+        /// <param name="Username">Hier geef je een gebruikersnaam, waarbij je wilt checken of die bestaat</param>
+        /// <returns>true als de gebruikersnaam al bestaat, false als dat niet is</returns>
         public bool UsernameExists(string Username)
         {
             reader = SQL.loadSQL("SELECT UserName FROM Gebruiker");
@@ -30,6 +39,12 @@ namespace DalMSSQL
             return true;
         }
 
+        /// <summary>
+        /// Maakt een gebruiker aan in de database
+        /// </summary>
+        /// <param name="dto">Hier geef je ene DTO die alle info van de gebruiker heeft</param>
+        /// <param name="wachtwoord">Hier geef je het wachtwoord van het account mee</param>
+        /// <returns>ID van de aangemaakte gebruiker</returns>
         public int Create(GebruikerDTO dto, string wachtwoord)
         {
             try
@@ -67,11 +82,20 @@ namespace DalMSSQL
             }
         }
 
+        /// <summary>
+        /// Verwijdert de meegegeven gebruiker in de database
+        /// </summary>
+        /// <param name="gebruiker">Gebruiker die je wilt verwijderen</param>
         public void Delete(GebruikerDTO gebruiker)
         {
             SQL.loadSQL("DELETE FROM Gebruiker WHERE ID = '" + gebruiker.ID + "'");
         }
 
+        /// <summary>
+        /// Vind de gebruiker waarbij de meegegeven ID bij hoort.
+        /// </summary>
+        /// <param name="ID">De ID van de gebruiker die je wilt vinden</param>
+        /// <returns>GebruikerDTO van de gebruikerID die je mee hebt gegeven</returns>
         public GebruikerDTO FindByID(int ID)
         {
             try
@@ -92,18 +116,23 @@ namespace DalMSSQL
             }
         }
 
+        /// <summary>
+        /// Update de info van de gebruiker in de database
+        /// </summary>
+        /// <param name="gebruiker">Hier geef je de gebruiker mee die je wilt updaten in de database.</param>
         public void Update(GebruikerDTO gebruiker)
         {
-            reader = SQL.loadSQL("UPDATE Gebruiker SET Naam = '" + gebruiker.Naam + "', UserName = '" + gebruiker.PlannerNaam + "', GameNaam = '" + gebruiker.GameNaam + "', Email = '" + gebruiker.Email + "', Rank1s = '" + gebruiker.Rank1s + "', Rank2s = '" + gebruiker.Rank2s + "', Rank3s = '" + gebruiker.Rank3s + "', WHERE ID = '" + gebruiker.ID + "'");
+            reader = SQL.loadSQL("UPDATE Gebruiker SET Naam = '" + gebruiker.Naam + "', " +
+                "UserName = '" + gebruiker.PlannerNaam + "', GameNaam = '" + gebruiker.GameNaam + "', " +
+                "Email = '" + gebruiker.Email + "', Rank1s = '" + gebruiker.Rank1s + "'," +
+                " Rank2s = '" + gebruiker.Rank2s + "', Rank3s = '" + gebruiker.Rank3s + "' " +
+                "WHERE ID = '" + gebruiker.ID + "'");
         }
 
-        // Dit is voor mensen toevoegen aan team.
-        public SqlDataReader GetAllGebruikers()
-        {
-            reader = SQL.loadSQL("SELECT * FROM Gebruiker");
-            return (reader);
-        }
-
+        /// <summary>
+        /// Dit haalt alle gebruikers op in de database en zet ze in een lijst
+        /// </summary>
+        /// <returns>Lijst van alle gebruikers in de database</returns>
         public List<GebruikerDTO> GetAll()
         {
             List<GebruikerDTO> lijst = new();
@@ -128,8 +157,8 @@ namespace DalMSSQL
         /// Checkt bij inlog of de gebruikersnaam en wachtwoord kloppen.
         /// </summary>
         /// <param name="gebruikersnaam"></param>
-        /// <param name="wachtwoord"></param>
-        /// <returns>GebruikerDTO</returns>
+        /// <param name="wachtwoord">Dit wordt maar even gebruikt.</param>
+        /// <returns>null als gebruiker niet gevonden is, returnt GebruikerDTO</returns>
         public GebruikerDTO FindByUsernameAndPassword(string? gebruikersnaam, string? wachtwoord)
         {
             try
@@ -156,19 +185,15 @@ namespace DalMSSQL
             }
             catch (InvalidOperationException ex)
             {
-                throw new TemporaryExceptionDAL("Temporary error with connection");
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
             }
             catch (IOException ex)
             {
-                throw new TemporaryExceptionDAL("Temporary error with connection");
-            }
-            catch (SqlException ex)
-            {
-                throw new TemporaryExceptionDAL("No connection with server");
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
             }
             catch (Exception ex)
             {
-                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.");
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
             }
         }
     }
