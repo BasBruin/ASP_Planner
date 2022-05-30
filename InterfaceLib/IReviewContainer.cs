@@ -8,5 +8,7 @@ namespace InterfaceLib
 {
     public interface IReviewContainer
     {
+        public List<ReviewDTO> GetTeamReviews(int ID);
+        public void Create(ReviewDTO dTO);
     }
 }

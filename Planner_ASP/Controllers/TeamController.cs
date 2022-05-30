@@ -20,13 +20,18 @@ namespace Planner_ASP.Controllers
 
         public IActionResult Index() // localhost/team
         {
-            List<Team> teams = new(tc.GetAll());
+            List<Team> alleteams = new(tc.GetAll());
+            List<Team> mijnteams = new(tc.GetMyTeams((int)HttpContext.Session.GetInt32("ID")));
             List<TeamViewModel> vms = new();
-            foreach (Team t in teams)
+            foreach (Team t in mijnteams)
             {
                 vms.Add(new TeamViewModel(t));
             }
-            return View(vms);
+            if(HttpContext.Session.GetString("ID") != null)
+            {
+                return View(vms);
+            }
+            return Content("Je moet eerst inloggen");
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Planner_ASP.Controllers
                 catch(TemporaryExceptionDAL ex)
                 {
                     Console.WriteLine(ex.Message + "Please try again.");
-                    return Redirect("/tijderr.html");
+                    return RedirectToAction("Index","TempError", ex);
                 }
                 catch (PermanentExceptionDAL ex)
                 {

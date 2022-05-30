@@ -8,15 +8,15 @@ namespace InterfaceLib
 {
     public class ReviewDTO
     {
-        public readonly int ID;
+        public readonly int? ID;
         public readonly string Teamreview;
         public readonly int TeamID;
 
-        public ReviewDTO(int iD, string teamreview, int teamID)
+        public ReviewDTO(string teamreview, int teamID, int? iD = null)
         {
-            ID = iD;
             Teamreview = teamreview;
             TeamID = teamID;
+            ID = iD;
         }
     }
 }

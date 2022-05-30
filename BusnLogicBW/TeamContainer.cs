@@ -19,12 +19,22 @@ namespace BusnLogicBW
         public List<Team> GetAll()
         {
             List<TeamDTO> dtos = container.GetAll();
-            List<Team> gebruikers = new List<Team>();
+            List<Team> teams = new List<Team>();
             foreach (TeamDTO dto in dtos)
             {
-                gebruikers.Add(new Team(dto));
+                teams.Add(new Team(dto));
             }
-            return gebruikers;
+            return teams;
+        }
+        public List<Team> GetMyTeams(int ID)
+        {
+            List<TeamDTO> dtos = container.GetMyTeams(ID);
+            List<Team> teams = new List<Team>();
+            foreach (TeamDTO dto in dtos)
+            {
+                teams.Add(new Team(dto));
+            }
+            return teams;
         }
     }
 }

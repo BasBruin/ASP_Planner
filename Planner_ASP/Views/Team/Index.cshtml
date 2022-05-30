@@ -3,8 +3,12 @@
     ViewData["Title"] = "Index";
 }
 
-Hier komt een lijst met gebruikers. <br>
+<div>Jou eigen teams: <br>
 @foreach(TeamViewModel vm in Model)
 {
     <a asp-action=Detail asp-route-id=@vm.ID>@vm.Naam</a><br />
-}
+}</div>
+
+
+<div>Als u nog geen team hebt klik <a asp-area="" asp-controller="RegisterTeam" asp-action="Index">hier</a></div>
+

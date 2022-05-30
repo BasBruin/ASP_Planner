@@ -7,7 +7,16 @@ namespace Planner_ASP.Models
         public readonly int ID;
         public readonly string Naam;
         public readonly string Beschrijving;
-        public readonly string Plaatje;
+        public readonly string? Plaatje;
+        public readonly List<ReviewViewModel>? viewModel;
+        
+
+        public TeamViewModel(int iD, string naam, string beschrijving, string? plaatje,
+            List<ReviewViewModel>? viewModel) : this(iD, naam, beschrijving)
+        {
+            Plaatje = plaatje;
+            this.viewModel = viewModel;
+        }
 
         public TeamViewModel(int id, string naam, string beschrijving)
         {
@@ -25,7 +34,7 @@ namespace Planner_ASP.Models
 
         public TeamViewModel(Team t)
         {
-            this.ID = t.ID;
+            this.ID = (int)t.ID;
             this.Naam = t.Naam;
             this.Beschrijving = t.Beschrijving;
             this.Plaatje = t.Plaatje;

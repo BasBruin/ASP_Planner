@@ -51,6 +51,24 @@ namespace DalMSSQL
             return lijst;
         }
 
+        public List<TeamDTO> GetMyTeams(int ID)
+        {
+            List<TeamDTO> lijst = new List<TeamDTO>();
+            DataTable dt = new();
+            string Sql = "SELECT t.* " +
+            "FROM Team t " +
+            "JOIN GebruikerTeam gt ON gt.TeamID = t.ID " +
+            "WHERE gt.GebruikerID =  '" + ID + "'";
+            SqlDataAdapter da = new(Sql, connString);
+            da.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                int TeamID = Convert.ToInt32(dr["ID"].ToString());
+                lijst.Add(new TeamDTO(TeamID, dr["Naam"].ToString(), dr["Beschrijving"].ToString()));
+            }
+            return lijst;
+        }
+
         public void Update(TeamDTO team)
         {
             SQL.loadSQL("UPDATE Team SET Naam = '" + team.Naam + "', Beschrijving = '" + team.Beschrijving + "', Plaatje = '" + team.Plaatje + "' WHERE ID = '" + team.ID + "'");

@@ -3,6 +3,27 @@
     ViewData["Title"] = "Detail";
 }
 
-<h1>Detail</h1>
-@Model.Naam zegt hallo!
+<div class="d-flex justify-content-center">
+    <form asp-action=Index method="POST">
+        <h1 class="d-flex justify-content-center">Profiel:</h1>
+        <table class="tabel">
+            <tr>
+                <td>Naam</td>
+                <td><input asp-for=Naam value='@Model.Naam'></td>
+            </tr>
+            <tr>
+                <td>Gebruikersnaam</td>
+                <td><input asp-for=Beschrijving value='@Model.Beschrijving'></td>
+            </tr>
+            <tr>
+                <td>In-Game Gebruikersnaam</td>
+                <td><input asp-for=Plaatje value='@Model.Plaatje'></td>
+            </tr>
+            <tr>
+        </table>
+        <div class="d-flex justify-content-center">
+            <input type="submit" value="Change Team!">
+        </div>
+        <div class="d-flex justify-content-center">Als u een review wilt achterlaten klik <a asp-area="" asp-controller="RegisterTeam" asp-action="Index">hier</a></div>
+    </form>
 

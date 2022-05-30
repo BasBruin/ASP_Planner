@@ -13,5 +13,6 @@ namespace InterfaceLib
         public void Update(TeamDTO team);
         public void Delete(TeamDTO team);
         public List<TeamDTO> GetAll();
+        public List<TeamDTO> GetMyTeams(int ID);
     }
 }
