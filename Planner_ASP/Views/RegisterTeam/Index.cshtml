@@ -1,7 +1,62 @@
-﻿
+﻿@using BusnLogicBW
+@model RegisterTeamViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="d-flex justify-content-center">
 
+    <form asp-action=Index method="POST">
+        <h1>Maak een team aan!</h1><br />
+        <table class="tabel">
+            <tr>
+                <td>TeamNaam</td>
+                <td><input asp-for=Naam></td>
+            </tr>
+            <div class="col-md-12">
+            @if (ViewData["ErrorGebNaam"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["ErrorGebNaam"]
+                </div>
+            }
+            </div>
+            <tr>
+                <td>Beschrijving</td>
+                <td><input asp-for=Beschrijving required></td>
+            </tr>
+                <td>1ste teamgenoot</td>
+                <td>
+                    <select asp-for=Teamspeler2>
+                        @foreach (Gebruiker gebruiker in Model.Gebruikers)
+                        {
+                            <option>@gebruiker.PlannerNaam</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            </tr>
+                <td>2de teamgenoot</td>
+                <td>
+                    <select asp-for=Teamspeler3>
+                        @foreach (Gebruiker gebruiker in Model.Gebruikers)
+                        {
+                            <option>@gebruiker.PlannerNaam</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <div class="col-md-12">
+            @if (ViewData["ErrorWW"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["ErrorWW"]
+                </div>
+            }
+            </div>
+        </table>
+        <div class="d-flex justify-content-center">
+            <input type="submit" value="Maak team!"></input>
+        </div>
+    </form>
+</div>

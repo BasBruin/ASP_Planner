@@ -8,7 +8,7 @@ namespace InterfaceLib
 {
     public interface IGebruikerContainer
     {
-        public GebruikerDTO FindByID(int ID);
+        public GebruikerDTO? FindByID(int ID);
         public int Create(GebruikerDTO gebruiker, string wachtwoord);
         public void Update(GebruikerDTO gebruiker);
         public void Delete(GebruikerDTO gebruiker);

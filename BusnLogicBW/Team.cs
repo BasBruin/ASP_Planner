@@ -17,7 +17,7 @@ namespace BusnLogicBW
         public readonly string Beschrijving;
         public readonly string Plaatje;
         
-        public Team(string? naam, string? beschrijving, string? plaatje, int? ID = null)
+        public Team(string naam, string beschrijving, string plaatje, int? ID = null)
         {
             this.ID = ID;
             this.Naam = naam;

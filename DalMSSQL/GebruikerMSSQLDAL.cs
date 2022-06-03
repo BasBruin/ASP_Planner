@@ -8,9 +8,9 @@ namespace DalMSSQL
     public class GebruikerMSSQLDAL : IGebruikerContainer
     {
         private readonly string connString;
-        DatabaseUtility SQL = null;
+        private readonly DatabaseUtility SQL;
         SqlDataReader reader;
-        SqlConnection connection = null;
+        private readonly SqlConnection connection;
         
         /// <summary>
         /// 
@@ -96,7 +96,7 @@ namespace DalMSSQL
         /// </summary>
         /// <param name="ID">De ID van de gebruiker die je wilt vinden</param>
         /// <returns>GebruikerDTO van de gebruikerID die je mee hebt gegeven</returns>
-        public GebruikerDTO FindByID(int ID)
+        public GebruikerDTO? FindByID(int ID)
         {
             try
             {
@@ -145,13 +145,12 @@ namespace DalMSSQL
                 }
                 return lijst;
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
                 return null;
             }
         }
-
 
         /// <summary>
         /// Checkt bij inlog of de gebruikersnaam en wachtwoord kloppen.

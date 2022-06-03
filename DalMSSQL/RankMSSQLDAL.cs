@@ -23,6 +23,10 @@ namespace DalMSSQL
             connection = new SqlConnection(connString);
         }
 
+        /// <summary>
+        /// Hier krijg je alle Ranks in de database
+        /// </summary>
+        /// <returns></returns>
         public List<RankDTO> GetRanks()
         {
             connection.Open();

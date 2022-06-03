@@ -34,7 +34,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Profiel</a>
                             </li>
                         }
-
+                        @if (Context.Session.GetString("Naam") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="Index">Teams</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <div class="navbar-right">

@@ -21,6 +21,11 @@ namespace DalMSSQL
         }
 
 
+        /// <summary>
+        /// Hier krijg je alle Reviews van een specifiek team
+        /// </summary>
+        /// <param name="ID">Dit is het ID van het team</param>
+        /// <returns>Lijst van reviews over dat team</returns>
         public List<ReviewDTO> GetTeamReviews(int ID)
         {
             List<ReviewDTO> lijst = new List<ReviewDTO>();
@@ -40,6 +45,10 @@ namespace DalMSSQL
             return lijst;
         }
 
+        /// <summary>
+        /// Je maakt hier een review aan over een team
+        /// </summary>
+        /// <param name="review">Je geeft hier alle info van de review mee</param>
         public void Create(ReviewDTO review)
         {
             SqlConnection connection = new SqlConnection(connString);

@@ -16,6 +16,11 @@ namespace BusnLogicBW
             this.container = container;
         }
 
+        public bool UsernameExists(string Username)
+        {
+            return container.UsernameExists(Username);
+        }
+
         public List<Team> GetAll()
         {
             List<TeamDTO> dtos = container.GetAll();

@@ -14,5 +14,6 @@ namespace InterfaceLib
         public void Delete(TeamDTO team);
         public List<TeamDTO> GetAll();
         public List<TeamDTO> GetMyTeams(int ID);
+        public bool UsernameExists(string Username);
     }
 }
