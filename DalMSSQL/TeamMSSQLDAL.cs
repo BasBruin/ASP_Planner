@@ -14,11 +14,13 @@ namespace DalMSSQL
         private readonly string connString;
         DatabaseUtility SQL = null;
         SqlDataReader reader;
+        private readonly SqlConnection connection;
 
         public TeamMSSQLDAL(string cs)
         {
             connString = cs;
             SQL = new DatabaseUtility(connString);
+            connection = new SqlConnection(connString);
         }
 
         /// <summary>
@@ -26,12 +28,31 @@ namespace DalMSSQL
         /// </summary>
         /// <param name="team">Geef hier een team mee die je wilt aanmaken</param>
         /// <returns>Geeft ID van het team terug die je hebt aangemaakt</returns>
-        public int Create(TeamDTO team)
+        public int Create(TeamDTO dto)
         {
-            SQL.loadSQL("INSERT INTO Team(Naam, Beschrijving, Plaatje) VALUES('" + team.Naam + "', '" + team.Beschrijving + "', '" + team.Plaatje + "')");
-            reader = SQL.loadSQL("SELECT ID, Naam FROM Team WHERE Naam = '" + team.Naam + "'");
-            reader.Read();
-            return reader.GetInt32(0);
+            try
+            {
+                connection.Open();
+                SqlCommand cmd;
+                string sql = "INSERT INTO Team(Naam, Beschrijving, Plaatje)  Values(" +
+                    "@Naam," +
+                    "@Beschrijving," +
+                    "@Plaatje);" +
+                    "SELECT SCOPE_IDENTITY();";
+
+                cmd = new SqlCommand(sql, connection);
+
+
+                cmd.Parameters.AddWithValue("@Naam", dto.Naam);
+                cmd.Parameters.AddWithValue("@Beschrijving", dto.Beschrijving);
+                cmd.Parameters.AddWithValue("@Plaatje", string.IsNullOrEmpty(dto.Plaatje) ? (object)DBNull.Value : dto.Plaatje);
+
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (SqlException ex)
+            {
+                throw new PermanentExceptionDAL("Error, Please Check our twitter for more updates.", ex);
+            }
         }
 
         /// <summary>
@@ -111,6 +132,27 @@ namespace DalMSSQL
                 return false;
             }
             return true;
+        }
+
+        public void VoegSpelerAanTeam(int GebruikerID, int TeamID, bool IsBeheerder)
+        {
+            try
+            {
+                connection.Open();
+                SqlCommand cmd;
+                string sql = "INSERT INTO GebruikerTeam(GebruikerID, TeamID, IsBeheerder)" +
+                    "Values(@GebruikerID, @TeamID, @IsBeheerder)";
+                cmd = new SqlCommand(sql, connection);
+                cmd.Parameters.AddWithValue("@GebruikerID", GebruikerID);
+                cmd.Parameters.AddWithValue("@TeamID", TeamID);
+                cmd.Parameters.AddWithValue("@IsBeheerder", IsBeheerder);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new PermanentExceptionDAL("Error, Please Check our twitter for more updates.", ex);
+            }
+
         }
     }
 }

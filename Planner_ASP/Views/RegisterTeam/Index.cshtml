@@ -14,45 +14,58 @@
                 <td><input asp-for=Naam></td>
             </tr>
             <div class="col-md-12">
-            @if (ViewData["ErrorGebNaam"] != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @ViewData["ErrorGebNaam"]
-                </div>
-            }
+                @if (ViewData["ZelfdeNaam"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewData["ZelfdeNaam"]
+                    </div>
+                }
             </div>
             <tr>
                 <td>Beschrijving</td>
                 <td><input asp-for=Beschrijving required></td>
             </tr>
-                <td>1ste teamgenoot</td>
-                <td>
-                    <select asp-for=Teamspeler2>
-                        @foreach (Gebruiker gebruiker in Model.Gebruikers)
+            <td>1ste teamgenoot</td>
+            <td>
+                <select asp-for=Teamspeler2>
+                    @foreach (Gebruiker gebruiker in Model.Gebruikers)
+                    {
+                        if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
+                        {
+
+                        }
+                        else
                         {
                             <option>@gebruiker.PlannerNaam</option>
                         }
-                    </select>
-                </td>
+                    }
+                </select>
+            </td>
             </tr>
             </tr>
-                <td>2de teamgenoot</td>
-                <td>
-                    <select asp-for=Teamspeler3>
-                        @foreach (Gebruiker gebruiker in Model.Gebruikers)
+            <td>2de teamgenoot</td>
+            <td>
+                <select asp-for=Teamspeler3>
+                    @foreach (Gebruiker gebruiker in Model.Gebruikers)
+                    {
+                        if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
+                        {
+
+                        }
+                        else
                         {
                             <option>@gebruiker.PlannerNaam</option>
                         }
-                    </select>
-                </td>
-            </tr>
+                    }
+                </select>
+            </td>
             <div class="col-md-12">
-            @if (ViewData["ErrorWW"] != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @ViewData["ErrorWW"]
-                </div>
-            }
+                @if (ViewData["ZelfdeTeamMate"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewData["ZelfdeTeamMate"]
+                    </div>
+                }
             </div>
         </table>
         <div class="d-flex justify-content-center">

@@ -12,9 +12,8 @@ namespace DalMSSQL
     public class RankMSSQLDAL : IRankContainer
     {
         private readonly string connString;
-        DatabaseUtility SQL = null;
-        SqlDataReader reader;
-        SqlConnection connection = null;
+        DatabaseUtility SQL;
+        SqlConnection connection;
 
         public RankMSSQLDAL(string cs)
         {

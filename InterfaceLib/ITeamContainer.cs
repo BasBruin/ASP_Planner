@@ -15,5 +15,6 @@ namespace InterfaceLib
         public List<TeamDTO> GetAll();
         public List<TeamDTO> GetMyTeams(int ID);
         public bool UsernameExists(string Username);
+        public void VoegSpelerAanTeam(int GebruikerID, int TeamID, bool IsBeheerder);
     }
 }

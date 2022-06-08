@@ -33,6 +33,12 @@ namespace BusnLogicBW
             this.Plaatje = dto.Plaatje;
         }
 
+        public TeamDTO GetDTO()
+        {
+            TeamDTO dto = new(Naam, Beschrijving, Plaatje);
+            return dto;
+        }
+
         public override string? ToString()
         {
             return Naam;

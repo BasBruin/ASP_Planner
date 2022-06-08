@@ -4,12 +4,12 @@ namespace Planner_ASP.Models
 {
     public class RegisterTeamViewModel
     {
-        public readonly string Naam;
-        public readonly string Beschrijving;
-        public readonly string? Plaatje;
-        public readonly List<Gebruiker> Gebruikers;
-        public readonly Gebruiker Teamspeler2;
-        public readonly Gebruiker Teamspeler3;
+        public string Naam { get; set; }
+        public string Beschrijving { get; set; }
+        public string? Plaatje { get; set; }
+        public List<Gebruiker> Gebruikers { get; set; }
+        public Gebruiker Teamspeler2 { get; set; }
+        public Gebruiker Teamspeler3 { get; set; }
 
         public RegisterTeamViewModel()
         {

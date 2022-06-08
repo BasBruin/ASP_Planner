@@ -11,7 +11,7 @@ namespace DalMSSQL
         private readonly DatabaseUtility SQL;
         SqlDataReader reader;
         private readonly SqlConnection connection;
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -76,9 +76,9 @@ namespace DalMSSQL
 
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return -1;
+                throw new PermanentExceptionDAL("Error, Please Check our twitter for more updates.", ex);
             }
         }
 
@@ -122,11 +122,36 @@ namespace DalMSSQL
         /// <param name="gebruiker">Hier geef je de gebruiker mee die je wilt updaten in de database.</param>
         public void Update(GebruikerDTO gebruiker)
         {
-            reader = SQL.loadSQL("UPDATE Gebruiker SET Naam = '" + gebruiker.Naam + "', " +
-                "UserName = '" + gebruiker.PlannerNaam + "', GameNaam = '" + gebruiker.GameNaam + "', " +
-                "Email = '" + gebruiker.Email + "', Rank1s = '" + gebruiker.Rank1s + "'," +
-                " Rank2s = '" + gebruiker.Rank2s + "', Rank3s = '" + gebruiker.Rank3s + "' " +
-                "WHERE ID = '" + gebruiker.ID + "'");
+            try
+            {
+                connection.Open();
+                SqlCommand cmd;
+                string sql = "UPDATE Gebruiker SET Naam = @Naam, UserName = @UserName, GameNaam = @GameNaam," +
+                    "Email = @Email, Rank1s = @Rank1s, Rank2s = @Rank2s, Rank3s = @Rank3s " +
+                    "WHERE ID = @ID";
+
+
+                cmd = new SqlCommand(sql, connection);
+
+                cmd.Parameters.AddWithValue("@Naam", gebruiker.Naam);
+                cmd.Parameters.AddWithValue("@UserName", gebruiker.PlannerNaam);
+                cmd.Parameters.AddWithValue("@GameNaam", gebruiker.GameNaam);
+                cmd.Parameters.AddWithValue("@Email", gebruiker.Email);
+                cmd.Parameters.AddWithValue("@Rank1s", gebruiker.Rank1s);
+                cmd.Parameters.AddWithValue("@Rank2s", gebruiker.Rank2s);
+                cmd.Parameters.AddWithValue("@Rank3s", gebruiker.Rank3s);
+                cmd.Parameters.AddWithValue("@ID", gebruiker.ID);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
+            }
         }
 
         /// <summary>

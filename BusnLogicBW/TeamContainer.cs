@@ -31,6 +31,19 @@ namespace BusnLogicBW
             }
             return teams;
         }
+
+        public void VoegSpelerAanTeam(int GebruikerID, int TeamID, bool IsBeheerder)
+        {
+            container.VoegSpelerAanTeam(GebruikerID, TeamID, IsBeheerder);
+        }
+
+
+        public int Create(Team t)
+        {
+            TeamDTO dto = t.GetDTO();
+            return container.Create(dto);
+        }
+
         public List<Team> GetMyTeams(int ID)
         {
             List<TeamDTO> dtos = container.GetMyTeams(ID);
