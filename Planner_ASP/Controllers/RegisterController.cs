@@ -13,7 +13,7 @@ namespace Planner_ASP.Controllers
     {
         DatabaseUtility DB = new();
         private GebruikerContainer gc;
-        private RankContainer rc = null;
+        private RankContainer rc;
 
         private readonly IConfiguration _configuration;
 

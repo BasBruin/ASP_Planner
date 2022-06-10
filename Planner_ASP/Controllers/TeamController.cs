@@ -8,7 +8,7 @@ namespace Planner_ASP.Controllers
 {
     public class TeamController : Controller
     {
-        private TeamContainer tc = null;
+        private TeamContainer tc;
 
         private readonly IConfiguration _configuration;
 

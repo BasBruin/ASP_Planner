@@ -30,13 +30,13 @@
                     <select asp-for=Rank1s value='@Model.gebruiker.Rank1s'>
                         @foreach (Rank rank in Model.ranks)
                         {
-                            if (rank.RankName == Model.gebruiker.Rank1s)
+                            if (rank.Naam == Model.gebruiker.Rank1s)
                             {
-                                <option selected> @rank.RankName</option>
+                                <option selected> @rank.Naam</option>
                             }
                             else
                             {
-                                <option>@rank.RankName</option>
+                                <option>@rank.Naam</option>
                             }
                         }
                     </select>
@@ -48,13 +48,13 @@
                     <select asp-for=Rank2s value='@Model.gebruiker.Rank2s'>
                         @foreach (Rank rank in Model.ranks)
                         {
-                            if (rank.RankName == Model.gebruiker.Rank2s)
+                            if (rank.Naam == Model.gebruiker.Rank2s)
                             {
-                                <option selected> @rank.RankName</option>
+                                <option selected> @rank.Naam</option>
                             }
                             else
                             {
-                                <option>@rank.RankName</option>
+                                <option>@rank.Naam</option>
                             }
                         }
                     </select>
@@ -66,13 +66,13 @@
                     <select asp-for=Rank3s value='@Model.gebruiker.Rank3s'>
                         @foreach (Rank rank in Model.ranks)
                         {
-                            if (rank.RankName == Model.gebruiker.Rank3s)
+                            if (rank.Naam == Model.gebruiker.Rank3s)
                             {
-                                <option selected> @rank.RankName</option>
+                                <option selected> @rank.Naam</option>
                             }
                             else
                             {
-                                <option>@rank.RankName</option>
+                                <option>@rank.Naam</option>
                             }
                         }
                     </select>

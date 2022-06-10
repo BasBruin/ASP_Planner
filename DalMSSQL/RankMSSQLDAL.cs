@@ -25,7 +25,7 @@ namespace DalMSSQL
         /// <summary>
         /// Hier krijg je alle Ranks in de database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Geeft een lijst met alle ranks terug</returns>
         public List<RankDTO> GetRanks()
         {
             connection.Open();

@@ -14,8 +14,8 @@ namespace Planner_ASP.Models
         public string? Rank2s { get; set; }
         public string? Rank3s { get; set; }
         public string? Plaatje { get; set; }
-        public Gebruiker gebruiker { get; set; }
-        public List<Rank> ranks { get; set; }
+        public Gebruiker? gebruiker { get; set; }
+        public List<Rank>? ranks { get; set; }
 
         public ProfielViewModel()
         {

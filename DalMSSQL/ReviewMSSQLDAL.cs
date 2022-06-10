@@ -12,7 +12,7 @@ namespace DalMSSQL
     public class ReviewMSSQLDAL : IReviewContainer
     {
         private readonly string connString;
-        SqlConnection connection = null;
+        SqlConnection connection;
 
         public ReviewMSSQLDAL(string cs)
         {

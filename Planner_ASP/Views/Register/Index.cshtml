@@ -46,7 +46,7 @@
                     <select asp-for=Rank1s>
                         @foreach (Rank rank in Model.ranks)
                         {
-                            <option>@rank.RankName</option>
+                            <option>@rank.Naam</option>
                         }
                     </select>
                 </td>
@@ -57,7 +57,7 @@
                     <select asp-for=Rank2s>
                         @foreach (Rank rank in Model.ranks)
                         {
-                            <option>@rank.RankName</option>
+                            <option>@rank.Naam</option>
                         }
                     </select>
                 </td>
@@ -68,7 +68,7 @@
                     <select asp-for=Rank3s>
                         @foreach (Rank rank in Model.ranks)
                         {
-                            <option>@rank.RankName</option>
+                            <option>@rank.Naam</option>
                         }
                     </select>
                 </td>
@@ -91,7 +91,7 @@
             </div>
         </table>
         <div class="d-flex justify-content-center">
-            <input type="submit" value="Register!"></input>
+            <input type="submit" value="Register!">
         </div>
     </form>
 </div>

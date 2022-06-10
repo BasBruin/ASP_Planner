@@ -7,8 +7,8 @@ namespace Planner_ASP.Controllers
 {
     public class RegisterTeamController : Controller
     {
-        private GebruikerContainer gc = null;
-        private TeamContainer tc = null;
+        private GebruikerContainer gc;
+        private TeamContainer tc;
         private readonly IConfiguration _configuration;
 
         public RegisterTeamController(IConfiguration ic)

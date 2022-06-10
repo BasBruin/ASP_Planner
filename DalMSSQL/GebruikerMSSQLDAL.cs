@@ -13,7 +13,7 @@ namespace DalMSSQL
         private readonly SqlConnection connection;
 
         /// <summary>
-        /// 
+        /// Hier maak je een GebruikerDAL.
         /// </summary>
         /// <param name="cs">Hier geef je de connectiestring mee</param>
         public GebruikerMSSQLDAL(string cs)
@@ -158,7 +158,7 @@ namespace DalMSSQL
         /// Dit haalt alle gebruikers op in de database en zet ze in een lijst
         /// </summary>
         /// <returns>Lijst van alle gebruikers in de database</returns>
-        public List<GebruikerDTO> GetAll()
+        public List<GebruikerDTO>? GetAll()
         {
             List<GebruikerDTO> lijst = new();
             try
@@ -183,7 +183,7 @@ namespace DalMSSQL
         /// <param name="gebruikersnaam"></param>
         /// <param name="wachtwoord">Dit wordt maar even gebruikt.</param>
         /// <returns>null als gebruiker niet gevonden is, returnt GebruikerDTO</returns>
-        public GebruikerDTO FindByUsernameAndPassword(string? gebruikersnaam, string? wachtwoord)
+        public GebruikerDTO? FindByUsernameAndPassword(string? gebruikersnaam, string? wachtwoord)
         {
             try
             {

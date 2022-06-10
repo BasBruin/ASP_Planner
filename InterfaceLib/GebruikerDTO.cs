@@ -28,15 +28,5 @@ namespace InterfaceLib
             Rank2s = rank2s;
             Rank3s = rank3s;
         }
-
-        public override bool Equals(object? obj)
-        {
-            if(obj is GebruikerDTO)
-            {
-                GebruikerDTO other = (GebruikerDTO)obj;
-                return this.ID == other.ID;
-            }
-            return false;
-        }
     }
 }

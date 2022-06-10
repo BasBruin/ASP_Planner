@@ -12,8 +12,8 @@ namespace InterfaceLib
         public int Create(GebruikerDTO gebruiker, string wachtwoord);
         public void Update(GebruikerDTO gebruiker);
         public void Delete(GebruikerDTO gebruiker);
-        public List<GebruikerDTO> GetAll();
-        public GebruikerDTO FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord);
+        public List<GebruikerDTO>? GetAll();
+        public GebruikerDTO? FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord);
         public bool UsernameExists(string Username);
     }
 }

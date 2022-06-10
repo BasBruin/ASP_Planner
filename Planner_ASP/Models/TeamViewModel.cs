@@ -4,9 +4,9 @@ namespace Planner_ASP.Models
 {
     public class TeamViewModel
     {
-        public readonly int ID;
-        public readonly string Naam;
-        public readonly string Beschrijving;
+        public readonly int? ID;
+        public readonly string? Naam;
+        public readonly string? Beschrijving;
         public readonly string? Plaatje;
         public readonly List<ReviewViewModel>? viewModel;
         

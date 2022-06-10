@@ -15,7 +15,7 @@ namespace Planner_ASP.Controllers
 
         public IActionResult Index()
         {
-            string naam = HttpContext.Session.GetString("Naam");
+            string? naam = HttpContext.Session.GetString("Naam");
             return View();
         }
 

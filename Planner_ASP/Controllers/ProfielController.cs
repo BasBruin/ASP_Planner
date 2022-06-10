@@ -8,8 +8,8 @@ namespace Planner_ASP.Controllers
 {
     public class ProfielController : Controller
     {
-        private GebruikerContainer gc = null;
-        private RankContainer rc = null;
+        private GebruikerContainer gc;
+        private RankContainer rc;
 
         private readonly IConfiguration _configuration;
 

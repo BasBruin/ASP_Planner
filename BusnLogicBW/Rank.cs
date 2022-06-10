@@ -9,20 +9,20 @@ namespace BusnLogicBW
 {
     public class Rank
     {
-        public readonly string RankName;
+        public readonly string Naam;
 
         public Rank(string rankName)
         {
-            RankName = rankName;
+            Naam = rankName;
         }
         public Rank(RankDTO dto)
         {
-            RankName = dto.RankName;
+            Naam = dto.RankName;
         }
 
         public override string ToString()
         {
-            return RankName;
+            return Naam;
         }
     }
 }

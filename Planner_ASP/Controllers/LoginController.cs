@@ -7,7 +7,7 @@ namespace Planner_ASP.Controllers
 {
     public class LoginController : Controller
     {
-        private GebruikerContainer gc = null;
+        private GebruikerContainer gc;
 
         private readonly IConfiguration _configuration;
 
@@ -31,7 +31,7 @@ namespace Planner_ASP.Controllers
             {
                 try 
                 {
-                    Gebruiker g = gc.FindByUsernameAndPassword(loginVM.Gebruikersnaam, loginVM.Wachtwoord);
+                    Gebruiker? g = gc.FindByUsernameAndPassword(loginVM.Gebruikersnaam, loginVM.Wachtwoord);
                     if (g == null)
                     {
                         ViewData["Error"] = "Inloggegevens niet correct";
@@ -49,7 +49,7 @@ namespace Planner_ASP.Controllers
                     Console.WriteLine(ex.Message + "Please try again.");
                     return RedirectToAction("Index","TempError", ex);
                 }
-                catch (PermanentExceptionDAL ex)
+                catch (PermanentExceptionDAL)
                 {
                     return Redirect("https://twitter.com/bassie00001");
                 }

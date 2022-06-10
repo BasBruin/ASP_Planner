@@ -34,7 +34,7 @@ namespace BusnLogicBW
 
         public void VoegSpelerAanTeam(int GebruikerID, int TeamID, bool IsBeheerder)
         {
-            container.VoegSpelerAanTeam(GebruikerID, TeamID, IsBeheerder);
+            container.VoegGebruikerAanTeam(GebruikerID, TeamID, IsBeheerder);
         }
 
 

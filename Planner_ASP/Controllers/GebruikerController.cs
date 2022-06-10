@@ -7,7 +7,7 @@ namespace Planner_ASP.Controllers
 {
     public class GebruikerController : Controller
     {
-        private GebruikerContainer gc = null;
+        private GebruikerContainer gc;
 
         private readonly IConfiguration _configuration;
 

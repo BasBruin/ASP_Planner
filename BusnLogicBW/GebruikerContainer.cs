@@ -19,7 +19,7 @@ namespace BusnLogicBW
 
         public Gebruiker FindByID(int ID)
         {
-            GebruikerDTO dto = container.FindByID(ID);
+            GebruikerDTO? dto = container.FindByID(ID);
             return new Gebruiker(dto);
         }
 
@@ -48,7 +48,7 @@ namespace BusnLogicBW
 
         public List<Gebruiker> GetAll()
         {
-            List<GebruikerDTO> dtos = container.GetAll();
+            List<GebruikerDTO>? dtos = container.GetAll();
             List<Gebruiker> gebruikers = new();
             foreach (GebruikerDTO dto in dtos)
             {
@@ -57,9 +57,9 @@ namespace BusnLogicBW
             return gebruikers;
         }
 
-        public Gebruiker FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord)
+        public Gebruiker? FindByUsernameAndPassword(string gebruikersnaam, string wachtwoord)
         {
-            GebruikerDTO dto = container.FindByUsernameAndPassword(gebruikersnaam, wachtwoord);
+            GebruikerDTO? dto = container.FindByUsernameAndPassword(gebruikersnaam, wachtwoord);
             if (dto == null)
             {
                 return null;

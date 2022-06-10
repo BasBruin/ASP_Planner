@@ -21,6 +21,11 @@ namespace DalMSSQL
 
         }
 
+        /// <summary>
+        /// Je geeft hier een sql query mee en hij voert hem voor je uit.
+        /// </summary>
+        /// <param name="query">Geef hier de query die je wilt uitvoeren</param>
+        /// <returns>Geeft een datareader terug die de data afleeest</returns>
         public SqlDataReader loadSQL(string query)
         {
             SqlConnection databaseConnection = new(connString);

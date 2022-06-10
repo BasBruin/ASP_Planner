@@ -12,10 +12,14 @@ namespace DalMSSQL
     public class TeamMSSQLDAL : ITeamContainer
     {
         private readonly string connString;
-        DatabaseUtility SQL = null;
+        DatabaseUtility SQL;
         SqlDataReader reader;
         private readonly SqlConnection connection;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cs">Hier geef je de connectiestring mee</param>
         public TeamMSSQLDAL(string cs)
         {
             connString = cs;
@@ -123,6 +127,11 @@ namespace DalMSSQL
             SQL.loadSQL("UPDATE Team SET Naam = '" + team.Naam + "', Beschrijving = '" + team.Beschrijving + "', Plaatje = '" + team.Plaatje + "' WHERE ID = '" + team.ID + "'");
         }
 
+        /// <summary>
+        /// Kijkt bij het aanmaken van een team of de teamnaam al bestaat
+        /// </summary>
+        /// <param name="Username">Geef hier de username waarbij je wilt checken of die al bestaat</param>
+        /// <returns>Geeft true als hij al bestaat in de database, anders false</returns>
         public bool UsernameExists(string Username)
         {
             reader = SQL.loadSQL("SELECT Naam FROM Team");
@@ -134,7 +143,14 @@ namespace DalMSSQL
             return true;
         }
 
-        public void VoegSpelerAanTeam(int GebruikerID, int TeamID, bool IsBeheerder)
+        /// <summary>
+        /// Hier voeg je een meegegeven speler toe aan het meegegeven team en zegt of hij beheerder van het team is.
+        /// </summary>
+        /// <param name="GebruikerID">Geef hier de gebruiker die je wilt toeveogen</param>
+        /// <param name="TeamID">Geef hier het team waaraan je de gebruiker wilt toevoegen</param>
+        /// <param name="IsBeheerder">true als de gebruiker ook de beheerder is, anders false</param>
+        /// <exception cref="PermanentExceptionDAL">Als de connectie niet werkt</exception>
+        public void VoegGebruikerAanTeam(int GebruikerID, int TeamID, bool IsBeheerder)
         {
             try
             {
