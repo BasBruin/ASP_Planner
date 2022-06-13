@@ -27,9 +27,13 @@ namespace Planner_ASP.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Rank> ranks = rc.GetRanks();
-            RegisterViewModel vm = new(ranks);
-            return View(vm);
+            if (HttpContext.Session.GetString("Naam") != null)
+            {
+                List<Rank> ranks = rc.GetRanks();
+                RegisterViewModel vm = new(ranks);
+                return View(vm);
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]

@@ -28,14 +28,15 @@ namespace Planner_ASP.Controllers
             {
                 return View(vm);
             }
-            return Content("Je moet eerst inloggen");
+            return RedirectToAction("Index", "Login");
         }
+
         [HttpPost]
         public IActionResult Index(RegisterTeamViewModel registervm)
         {
             if (!tc.UsernameExists(registervm.Naam))
             {
-                Team t = new(registervm.Naam, registervm.Beschrijving, registervm.Plaatje);
+                Team t = new(registervm.Naam, registervm.Beschrijving, plaatje: registervm.Plaatje);
                 if (registervm.Teamspeler2 != registervm.Teamspeler3)
                 {
                     int teamid = tc.Create(t);

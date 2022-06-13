@@ -28,7 +28,8 @@
             <td>1ste teamgenoot</td>
             <td>
                 <select asp-for=Teamspeler2>
-                    @foreach (Gebruiker gebruiker in Model.Gebruikers)
+                    
+                    @foreach (Gebruiker gebruiker in @Model.gebruikers)
                     {
                         if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
                         {
@@ -40,11 +41,14 @@
                         }
                     }
                 </select>
+                @Html.HiddenFor(m => m.Teamspeler2.ID)
             </td>
             <td>2de teamgenoot</td>
             <td>
                 <select asp-for=Teamspeler3>
-                    @foreach (Gebruiker gebruiker in Model.Gebruikers)
+                    
+                  
+                    @foreach (Gebruiker gebruiker in Model.gebruikers)
                     {
                         if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
                         {
@@ -56,6 +60,7 @@
                         }
                     }
                 </select>
+                @Html.HiddenFor(m => m.Teamspeler3.ID)
             </td>
             <div class="col-md-12">
                 @if (ViewData["ZelfdeTeamMate"] != null)

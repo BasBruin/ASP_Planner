@@ -7,7 +7,7 @@ namespace Planner_ASP.Models
         public string Naam { get; set; }
         public string Beschrijving { get; set; }
         public string? Plaatje { get; set; }
-        public List<Gebruiker>? Gebruikers { get; set; }
+        public List<Gebruiker>? gebruikers { get; set; }
         public Gebruiker? Teamspeler2 { get; set; }
         public Gebruiker? Teamspeler3 { get; set; }
 
@@ -23,7 +23,7 @@ namespace Planner_ASP.Models
         }
         public RegisterTeamViewModel(List<Gebruiker> gebruikers)
         {
-            this.Gebruikers = gebruikers;
+            this.gebruikers = gebruikers;
         }
     }
 }

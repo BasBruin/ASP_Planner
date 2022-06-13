@@ -23,10 +23,14 @@ namespace Planner_ASP.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            Gebruiker g = gc.FindByID(HttpContext.Session.GetInt32("ID").Value);
-            List<Rank> ranks = rc.GetRanks();
-            ProfielViewModel vm = new(g, ranks);
-            return View(vm);
+            if(HttpContext.Session.GetString("Naam") != null)
+            {
+                Gebruiker g = gc.FindByID(HttpContext.Session.GetInt32("ID").Value);
+                List<Rank> ranks = rc.GetRanks();
+                ProfielViewModel vm = new(g, ranks);
+                return View(vm);
+            }
+           return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]
