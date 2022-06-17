@@ -42,7 +42,11 @@ namespace DalMSSQL
             {
                 throw new TemporaryExceptionDAL("Temporary error with connection", ex);
             }
-            catch (Exception ex)
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
+            catch (SqlException ex)
             {
                 throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
             }

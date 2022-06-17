@@ -12,7 +12,7 @@ namespace Planner_ASP.Controllers
         private readonly IConfiguration _configuration;
 
         public RegisterTeamController(IConfiguration ic)
-        {
+        {                      
             _configuration = ic;
             tc = new(new TeamMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
             gc = new(new GebruikerMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
@@ -21,40 +21,62 @@ namespace Planner_ASP.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Gebruiker> gebruikers = gc.GetAll((int)HttpContext.Session.GetInt32("ID"));
-            RegisterTeamViewModel vm = new(gebruikers);
-
-            if (HttpContext.Session.GetString("ID") != null)
+            try
             {
-                return View(vm);
+                List<Gebruiker> gebruikers = gc.GetAll((int)HttpContext.Session.GetInt32("ID"));
+                RegisterTeamViewModel vm = new(gebruikers);
+
+                if (HttpContext.Session.GetString("ID") != null)
+                {
+                    return View(vm);
+                }
+                return RedirectToAction("Index", "Login");
             }
-            return RedirectToAction("Index", "Login");
+            catch (TemporaryExceptionDAL)
+            {
+                return RedirectToAction("Index", "TempError");
+            }
+            catch (PermanentExceptionDAL)
+            {
+                return Redirect("https://twitter.com/bassie00001");
+            }
         }
 
         [HttpPost]
         public IActionResult Index(RegisterTeamViewModel registervm)
         {
-            if (!tc.UsernameExists(registervm.Naam))
+            try
             {
-                Team t = new(registervm.Naam, registervm.Beschrijving, plaatje: registervm.Plaatje);
-                if (registervm.Teamspeler2 != registervm.Teamspeler3)
+                if (!tc.UsernameExists(registervm.Naam))
                 {
-                    int teamid = tc.Create(t);
-                    tc.VoegSpelerAanTeam(registervm.Teamspeler2.ID.Value, teamid, false);
-                    tc.VoegSpelerAanTeam(registervm.Teamspeler3.ID.Value, teamid, false);
-                    tc.VoegSpelerAanTeam(HttpContext.Session.GetInt32("ID").Value, teamid, true);
-                    return RedirectToAction("Index", "Home");
+                    Team t = new(registervm.Naam, registervm.Beschrijving, plaatje: registervm.Plaatje);
+                    if (registervm.Teamspeler2 != registervm.Teamspeler3)
+                    {
+                        int teamid = tc.Create(t);
+                        tc.VoegSpelerAanTeam(registervm.Teamspeler2, teamid, false);
+                        tc.VoegSpelerAanTeam(registervm.Teamspeler3, teamid, false);
+                        tc.VoegSpelerAanTeam(HttpContext.Session.GetInt32("ID").Value, teamid, true);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewData["ZelfdeTeamMate"] = "Je mag niet 2x dezelfde teamgenoot kiezen";
+                    }
                 }
                 else
                 {
-                    ViewData["ZelfdeTeamMate"] = "Je mag niet 2x dezelfde teamgenoot kiezen";
+                    ViewData["ZelfdeNaam"] = "TeamNaam bestaat al!";
                 }
+                return View();
             }
-            else
+            catch (TemporaryExceptionDAL)
             {
-                ViewData["ZelfdeNaam"] = "TeamNaam bestaat al!";
+                return RedirectToAction("Index", "TempError");
             }
-            return View();
+            catch (PermanentExceptionDAL)
+            {
+                return Redirect("https://twitter.com/bassie00001");
+            }
         }
     }
 }

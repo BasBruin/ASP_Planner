@@ -28,18 +28,33 @@ namespace DalMSSQL
         /// <returns>Geeft een lijst met alle ranks terug</returns>
         public List<RankDTO> GetRanks()
         {
-            connection.Open();
-            List<RankDTO> rankDTOs = new List<RankDTO>();
-
-            string query = "SELECT * FROM Ranks";
-            SqlCommand command = new SqlCommand(query, connection);
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                rankDTOs.Add(new RankDTO(reader.GetString("Rank")));
+                connection.Open();
+                List<RankDTO> rankDTOs = new List<RankDTO>();
+
+                string query = "SELECT * FROM Ranks";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    rankDTOs.Add(new RankDTO(reader.GetString("Rank")));
+                }
+                connection.Close();
+                return rankDTOs;
             }
-            connection.Close();
-            return rankDTOs;
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
+            catch (SqlException ex)
+            {
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
+            }
         }
     }
 }

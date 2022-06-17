@@ -23,23 +23,45 @@ namespace Planner_ASP.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if(HttpContext.Session.GetString("Naam") != null)
+            try
             {
-                Gebruiker g = gc.FindByID(HttpContext.Session.GetInt32("ID").Value);
-                List<Rank> ranks = rc.GetRanks();
-                ProfielViewModel vm = new(g, ranks);
-                return View(vm);
+                if (HttpContext.Session.GetString("Naam") != null)
+                {
+                    Gebruiker g = gc.FindByID(HttpContext.Session.GetInt32("ID").Value);
+                    List<Rank> ranks = rc.GetRanks();
+                    ProfielViewModel vm = new(g, ranks);
+                    return View(vm);
+                }
+                return RedirectToAction("Index", "Login");
             }
-           return RedirectToAction("Index", "Login");
+            catch (TemporaryExceptionDAL)
+            {
+                return RedirectToAction("Index", "TempError");
+            }
+            catch (PermanentExceptionDAL)
+            {
+                return Redirect("https://twitter.com/bassie00001");
+            }
         }
 
         [HttpPost]
         public IActionResult Index(ProfielViewModel profilevm)
         {
-            Gebruiker g = new(profilevm.Naam, profilevm.GameNaam, profilevm.PlannerNaam, profilevm.Email,
+            try
+            {
+                Gebruiker g = new(profilevm.Naam, profilevm.GameNaam, profilevm.PlannerNaam, profilevm.Email,
                 profilevm.Rank1s, profilevm.Rank2s, profilevm.Rank3s, HttpContext.Session.GetInt32("ID").Value);
-            gc.Update(g);
-            return RedirectToAction("Index");
+                gc.Update(g);
+                return RedirectToAction("Index");
+            }
+            catch (TemporaryExceptionDAL)
+            {
+                return RedirectToAction("Index", "TempError");
+            }
+            catch (PermanentExceptionDAL)
+            {
+                return Redirect("https://twitter.com/bassie00001");
+            }
         }
 
         [HttpPost]

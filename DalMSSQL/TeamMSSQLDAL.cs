@@ -53,9 +53,17 @@ namespace DalMSSQL
 
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
+            catch (IOException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
             catch (SqlException ex)
             {
-                throw new PermanentExceptionDAL("Error, Please Check our twitter for more updates.", ex);
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
             }
         }
 
@@ -75,9 +83,17 @@ namespace DalMSSQL
         /// <returns>Een teamDTO</returns>
         public TeamDTO FindByID(int ID)
         {
-            reader = SQL.loadSQL("SELECT ID, Naam, Beschrijving FROM Team WHERE ID = '" + ID + "'");
-            TeamDTO dTO = new(ID, reader.GetString("Naam"), reader.GetString("Beschrijving"));
-            return dTO;
+            try
+            {
+                reader = SQL.loadSQL("SELECT * FROM Team WHERE ID = '" + ID + "'");
+                reader.Read();
+                TeamDTO dTO = new(ID, reader.GetString("Naam"), reader.GetString("Beschrijving"));
+                return dTO;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
         }
 
         /// <summary>
@@ -102,20 +118,27 @@ namespace DalMSSQL
         /// <returns>Hier krijg je alle teams van de specifieke gebruiker terug</returns>
         public List<TeamDTO> GetMyTeams(int ID)
         {
-            List<TeamDTO> lijst = new List<TeamDTO>();
-            DataTable dt = new();
-            string Sql = "SELECT t.* " +
-            "FROM Team t " +
-            "JOIN GebruikerTeam gt ON gt.TeamID = t.ID " +
-            "WHERE gt.GebruikerID =  '" + ID + "'";
-            SqlDataAdapter da = new(Sql, connString);
-            da.Fill(dt);
-            foreach (DataRow dr in dt.Rows)
+            try
             {
-                int TeamID = Convert.ToInt32(dr["ID"].ToString());
-                lijst.Add(new TeamDTO(TeamID, dr["Naam"].ToString(), dr["Beschrijving"].ToString()));
+                List<TeamDTO> lijst = new List<TeamDTO>();
+                DataTable dt = new();
+                string Sql = "SELECT t.* " +
+                "FROM Team t " +
+                "JOIN GebruikerTeam gt ON gt.TeamID = t.ID " +
+                "WHERE gt.GebruikerID =  '" + ID + "'";
+                SqlDataAdapter da = new(Sql, connString);
+                da.Fill(dt);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    int TeamID = Convert.ToInt32(dr["ID"].ToString());
+                    lijst.Add(new TeamDTO(TeamID, dr["Naam"].ToString(), dr["Beschrijving"].ToString()));
+                }
+                return lijst;
             }
-            return lijst;
+            catch(InvalidOperationException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
         }
 
         /// <summary>
@@ -134,13 +157,20 @@ namespace DalMSSQL
         /// <returns>Geeft true als hij al bestaat in de database, anders false</returns>
         public bool UsernameExists(string Username)
         {
-            reader = SQL.loadSQL("SELECT Naam FROM Team");
-            reader.Read();
-            if (reader.GetString("Naam") != Username)
+            try
             {
-                return false;
+                reader = SQL.loadSQL("SELECT Naam FROM Team");
+                reader.Read();
+                if (reader.GetString("Naam") != Username)
+                {
+                    return false;
+                }
+                return true;
             }
-            return true;
+            catch (SqlException ex)
+            {
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
+            }
         }
 
         /// <summary>
@@ -154,6 +184,7 @@ namespace DalMSSQL
         {
             try
             {
+                connection.Close();
                 connection.Open();
                 SqlCommand cmd;
                 string sql = "INSERT INTO GebruikerTeam(GebruikerID, TeamID, IsBeheerder)" +
@@ -163,10 +194,22 @@ namespace DalMSSQL
                 cmd.Parameters.AddWithValue("@TeamID", TeamID);
                 cmd.Parameters.AddWithValue("@IsBeheerder", IsBeheerder);
                 cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (InvalidOperationException ex)
+            {
+                connection.Close();
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
+            catch (IOException ex)
+            {
+                connection.Close();
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
             }
             catch (SqlException ex)
             {
-                throw new PermanentExceptionDAL("Error, Please Check our twitter for more updates.", ex);
+                connection.Close();
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
             }
 
         }

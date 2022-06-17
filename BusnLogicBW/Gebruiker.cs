@@ -48,6 +48,7 @@ namespace BusnLogicBW
             return GameNaam;
         }
 
+        
         public GebruikerDTO GetDTO()
         {
             GebruikerDTO dto = new(Naam, GameNaam, PlannerNaam, Email, Rank1s, Rank2s, Rank3s, ID);

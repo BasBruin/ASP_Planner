@@ -27,45 +27,67 @@ namespace Planner_ASP.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Naam") != null)
+            try
             {
-                List<Rank> ranks = rc.GetRanks();
-                RegisterViewModel vm = new(ranks);
-                return View(vm);
+                if (HttpContext.Session.GetString("Naam") != null)
+                {
+                    List<Rank> ranks = rc.GetRanks();
+                    RegisterViewModel vm = new(ranks);
+                    return View(vm);
+                }
+                return RedirectToAction("Index", "Login");
             }
-            return RedirectToAction("Index", "Login");
+            catch (TemporaryExceptionDAL)
+            {
+                return RedirectToAction("Index", "TempError");
+            }
+            catch (PermanentExceptionDAL)
+            {
+                return Redirect("https://twitter.com/bassie00001");
+            }
         }
 
         [HttpPost]
         public IActionResult Index(RegisterViewModel registervm)
         {
-            if (IsValidEmailAddress(registervm.Email))
+            try
             {
-                if (registervm.Wachtwoord == registervm.WachtwoordHerhalen)
+                if (IsValidEmailAddress(registervm.Email))
                 {
-                    if (!gc.UsernameExists(registervm.PlannerNaam))
+                    if (registervm.Wachtwoord == registervm.WachtwoordHerhalen)
                     {
-                        Gebruiker g = new(registervm.Naam, registervm.GameNaam, registervm.PlannerNaam, registervm.Email, registervm.Rank1s, registervm.Rank2s, registervm.Rank3s);
-                        int id = gc.Create(g, registervm.Wachtwoord);
-                        HttpContext.Session.SetString("ID", id.ToString());
-                        HttpContext.Session.SetString("Naam", g.Naam);
-                        return RedirectToAction("Index", "Home");
+                        if (!gc.UsernameExists(registervm.PlannerNaam))
+                        {
+                            Gebruiker g = new(registervm.Naam, registervm.GameNaam, registervm.PlannerNaam, registervm.Email, registervm.Rank1s, registervm.Rank2s, registervm.Rank3s);
+                            int id = gc.Create(g, registervm.Wachtwoord);
+                            HttpContext.Session.SetString("ID", id.ToString());
+                            HttpContext.Session.SetString("Naam", g.Naam);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ViewData["ErrorGebNaam"] = "Gebruikersnaam bestaat al!";
+                        }
                     }
                     else
                     {
-                        ViewData["ErrorGebNaam"] = "Gebruikersnaam bestaat al!";
+                        ViewData["ErrorWW"] = "Wachtwoord en wachtwoord herhalen is niet hetzelfde!";
                     }
                 }
                 else
                 {
-                    ViewData["ErrorWW"] = "Wachtwoord en wachtwoord herhalen is niet hetzelfde!";
+                    ViewData["ErrorEmail"] = "Ongeldige email";
                 }
+                return View();
             }
-            else
+            catch (TemporaryExceptionDAL)
             {
-                ViewData["ErrorEmail"] = "Ongeldige email";
+                return RedirectToAction("Index", "TempError");
             }
-            return View();
+            catch (PermanentExceptionDAL)
+            {
+                return Redirect("https://twitter.com/bassie00001");
+            }
         }
 
         /// <summary>

@@ -8,15 +8,8 @@ namespace Planner_ASP.Models
         public readonly string? Naam;
         public readonly string? Beschrijving;
         public readonly string? Plaatje;
-        public readonly List<ReviewViewModel>? viewModel;
+        public readonly List<Review>? reviews;
         
-
-        public TeamViewModel(int iD, string naam, string beschrijving, string? plaatje,
-            List<ReviewViewModel>? viewModel) : this(iD, naam, beschrijving)
-        {
-            Plaatje = plaatje;
-            this.viewModel = viewModel;
-        }
 
         public TeamViewModel(int id, string naam, string beschrijving)
         {
@@ -25,19 +18,13 @@ namespace Planner_ASP.Models
             this.Beschrijving = beschrijving;
         }
 
-        public TeamViewModel(string naam, string beschrijving, string plaatje)
-        {
-            this.Naam = naam;
-            this.Beschrijving = beschrijving;
-            this.Plaatje = plaatje;
-        }
-
-        public TeamViewModel(Team t)
+        public TeamViewModel(Team t, List<Review>? reviews = null)
         {
             this.ID = (int)t.ID;
             this.Naam = t.Naam;
             this.Beschrijving = t.Beschrijving;
             this.Plaatje = t.Plaatje;
+            this.reviews = reviews;
         }
 
         public TeamViewModel()

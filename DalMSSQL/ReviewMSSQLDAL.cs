@@ -55,13 +55,14 @@ namespace DalMSSQL
             connection.Open();
             SqlCommand command;
             string sql = "INSERT INTO Review(Review, TeamID) VALUES(" +
-            "@Review" +
+            "@Review," +
             "@TeamID)";
 
             command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@Review", review.Teamreview);
             command.Parameters.AddWithValue("@TeamID", review.TeamID);
             command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

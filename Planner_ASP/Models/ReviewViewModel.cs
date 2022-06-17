@@ -4,11 +4,11 @@ namespace Planner_ASP.Models
 {
     public class ReviewViewModel
     {
-        public readonly int? ID;
-        public readonly string Teamreview;
-        public readonly int TeamID;
+        public int? ID { get; set; }
+        public string Teamreview { get; set; }
+        public int TeamID{ get; set; }
 
-        public ReviewViewModel(string teamreview, int teamID, int? iD = null)
+    public ReviewViewModel(string teamreview, int teamID, int? iD = null)
         {
             Teamreview = teamreview;
             TeamID = teamID;
@@ -20,6 +20,11 @@ namespace Planner_ASP.Models
             this.ID = dto.ID;
             this.Teamreview = dto.Teamreview;
             this.TeamID = dto.TeamID;
+        }
+
+        public ReviewViewModel()
+        {
+
         }
     }
 }
