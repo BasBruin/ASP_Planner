@@ -42,5 +42,13 @@ namespace Planner_ASP.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public IActionResult Delete()
+        {
+            gc.Delete((int)HttpContext.Session.GetInt32("ID"));
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Login");
+        }
+
     }
 }

@@ -27,40 +27,13 @@
             </tr>
             <td>1ste teamgenoot</td>
             <td>
-                <select asp-for=Teamspeler2>
-                    
-                    @foreach (Gebruiker gebruiker in @Model.gebruikers)
-                    {
-                        if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
-                        {
-
-                        }
-                        else
-                        {
-                            <option>@gebruiker.PlannerNaam</option>
-                        }
-                    }
-                </select>
-                @Html.HiddenFor(m => m.Teamspeler2.ID)
+                @Html.DropDownListFor(m => m.Teamspeler2, new SelectList(Model.gebruikers), "--Gebruikers--",
+                new { @class = "form-control full-width"})
             </td>
             <td>2de teamgenoot</td>
             <td>
-                <select asp-for=Teamspeler3>
-                    
-                  
-                    @foreach (Gebruiker gebruiker in Model.gebruikers)
-                    {
-                        if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
-                        {
-
-                        }
-                        else
-                        {
-                            <option>@gebruiker.PlannerNaam</option>
-                        }
-                    }
-                </select>
-                @Html.HiddenFor(m => m.Teamspeler3.ID)
+                @Html.DropDownListFor(m => m.Teamspeler3, new SelectList(Model.gebruikers), "--Gebruikers--",
+                new { @class = "form-control full-width"})
             </td>
             <div class="col-md-12">
                 @if (ViewData["ZelfdeTeamMate"] != null)

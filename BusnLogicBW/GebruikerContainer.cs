@@ -35,10 +35,9 @@ namespace BusnLogicBW
             container.Update(dto);
         }
 
-        public void Delete(Gebruiker g)
+        public void Delete(int id)
         {
-            GebruikerDTO dto = g.GetDTO();
-            container.Delete(dto);
+            container.Delete(id);
         }
 
         public bool UsernameExists(string Username)
@@ -46,9 +45,9 @@ namespace BusnLogicBW
             return container.UsernameExists(Username);
         }
 
-        public List<Gebruiker> GetAll()
+        public List<Gebruiker> GetAll(int id)
         {
-            List<GebruikerDTO>? dtos = container.GetAll();
+            List<GebruikerDTO>? dtos = container.GetAll(id);
             List<Gebruiker> gebruikers = new();
             foreach (GebruikerDTO dto in dtos)
             {

@@ -58,3 +58,6 @@ body {
 .navbar-right {
    margin-right:100px;
 }
+.delete{
+    color:crimson;
+}

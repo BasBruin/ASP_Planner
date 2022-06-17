@@ -83,12 +83,32 @@ namespace DalMSSQL
         }
 
         /// <summary>
-        /// Verwijdert de meegegeven gebruiker in de database
+        /// Verwijdert de meegegeven gebruiker in de database, en verwijdert hem van zijn teams
         /// </summary>
         /// <param name="gebruiker">Gebruiker die je wilt verwijderen</param>
-        public void Delete(GebruikerDTO gebruiker)
+        public void Delete(int id)
         {
-            SQL.loadSQL("DELETE FROM Gebruiker WHERE ID = '" + gebruiker.ID + "'");
+            connection.Open();
+            SqlCommand cmd;
+            string sql = "DELETE FROM Gebruiker WHERE ID = @ID";
+            cmd = new SqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@ID", id);
+            cmd.ExecuteNonQuery();
+            DeleteFromAllTeam(id);
+        }
+
+        /// <summary>
+        /// Verwijdert een gebruiker van al zijn teams
+        /// </summary>
+        /// <param name="gebruikerID">Geef hier de gebruikerID mee die je wilt verwijderen van zijn teams</param>
+        private void DeleteFromAllTeam(int gebruikerID)
+        {
+            connection.Open();
+            SqlCommand cmd;
+            string sql = "DELETE FROM GebruikerTeam WHERE GebruikerID = @GebruikerID";
+            cmd = new SqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@GebruikerID", gebruikerID);
+            cmd.ExecuteNonQuery();
         }
 
         /// <summary>
@@ -109,10 +129,9 @@ namespace DalMSSQL
                     reader.IsDBNull("Rank3s") ? null : reader.GetString("Rank3s"),
                     reader.GetInt32("ID"));
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
             }
         }
 
@@ -155,15 +174,15 @@ namespace DalMSSQL
         }
 
         /// <summary>
-        /// Dit haalt alle gebruikers op in de database en zet ze in een lijst
+        /// Dit haalt alle gebruikers behalve de meegegeven speler op in de database en zet ze in een lijst
         /// </summary>
         /// <returns>Lijst van alle gebruikers in de database</returns>
-        public List<GebruikerDTO>? GetAll()
+        public List<GebruikerDTO>? GetAll(int id)
         {
             List<GebruikerDTO> lijst = new();
             try
             {
-                reader = SQL.loadSQL("SELECT * FROM Gebruiker");
+                reader = SQL.loadSQL("SELECT * FROM Gebruiker WHERE ID != '" + id + "'");
                 while (reader.Read())
                 {
                     lijst.Add(new GebruikerDTO(reader.GetString("Naam"), reader.GetString("GameNaam"), reader.GetString("UserName"), reader.GetString("Email"), reader.GetString("Rank1s"), reader.GetString("Rank2s"), reader.GetString("Rank3s"), reader.GetInt32("ID")));

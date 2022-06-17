@@ -28,13 +28,24 @@ namespace DalMSSQL
         /// <returns>Geeft een datareader terug die de data afleeest</returns>
         public SqlDataReader loadSQL(string query)
         {
-            SqlConnection databaseConnection = new(connString);
-            SqlCommand cmd = new(query, databaseConnection);
-            cmd.CommandTimeout = 60;
-            SqlDataReader reader;
-            databaseConnection.Open();
-            reader = cmd.ExecuteReader();
-            return (reader);
+            try
+            {
+                SqlConnection databaseConnection = new(connString);
+                SqlCommand cmd = new(query, databaseConnection);
+                cmd.CommandTimeout = 60;
+                SqlDataReader reader;
+                databaseConnection.Open();
+                reader = cmd.ExecuteReader();
+                return (reader);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new TemporaryExceptionDAL("Temporary error with connection", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new PermanentExceptionDAL("Error Please Check our twitter for more updates.", ex);
+            }
         }
 
     }

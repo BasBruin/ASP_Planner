@@ -21,6 +21,12 @@ namespace BusnLogicBW
             return container.UsernameExists(Username);
         }
 
+        public Team FindByID(int ID)
+        {
+            TeamDTO? dto = container.FindByID(ID);
+            return new Team(dto);
+        }
+
         public List<Team> GetAll()
         {
             List<TeamDTO> dtos = container.GetAll();

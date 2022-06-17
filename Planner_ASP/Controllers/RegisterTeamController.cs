@@ -21,7 +21,7 @@ namespace Planner_ASP.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Gebruiker> gebruikers = gc.GetAll();
+            List<Gebruiker> gebruikers = gc.GetAll((int)HttpContext.Session.GetInt32("ID"));
             RegisterTeamViewModel vm = new(gebruikers);
 
             if (HttpContext.Session.GetString("ID") != null)

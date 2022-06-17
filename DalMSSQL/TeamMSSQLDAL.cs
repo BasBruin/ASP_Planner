@@ -76,7 +76,7 @@ namespace DalMSSQL
         public TeamDTO FindByID(int ID)
         {
             reader = SQL.loadSQL("SELECT ID, Naam, Beschrijving FROM Team WHERE ID = '" + ID + "'");
-            TeamDTO dTO = new(ID, reader.GetString(1), reader.GetString(2));
+            TeamDTO dTO = new(ID, reader.GetString("Naam"), reader.GetString("Beschrijving"));
             return dTO;
         }
 

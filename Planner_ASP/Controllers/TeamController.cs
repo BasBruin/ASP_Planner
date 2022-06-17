@@ -18,7 +18,7 @@ namespace Planner_ASP.Controllers
             tc = new(new TeamMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
         }
 
-        public IActionResult Index() // localhost/team
+        public IActionResult Index() 
         {
             List<Team> alleteams = new(tc.GetAll());
             List<Team> mijnteams = new(tc.GetMyTeams((int)HttpContext.Session.GetInt32("ID")));
@@ -31,7 +31,19 @@ namespace Planner_ASP.Controllers
             {
                 return View(vms);
             }
-            return Content("Je moet eerst inloggen");
+            return RedirectToAction("Index", "Login");
         }
+        [HttpGet]
+        public IActionResult Detail() 
+        {
+            if (HttpContext.Session.GetString("Naam") != null)
+            {
+                Team t = tc.FindByID(HttpContext.Session.GetInt32("ID").Value);
+                TeamViewModel vm = new(t);
+                return View(vm);
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
     }
 }
