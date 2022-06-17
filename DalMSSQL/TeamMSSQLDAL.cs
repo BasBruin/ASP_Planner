@@ -16,10 +16,7 @@ namespace DalMSSQL
         SqlDataReader reader;
         private readonly SqlConnection connection;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cs">Hier geef je de connectiestring mee</param>
+
         public TeamMSSQLDAL(string cs)
         {
             connString = cs;
