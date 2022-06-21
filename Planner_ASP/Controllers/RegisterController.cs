@@ -11,7 +11,6 @@ namespace Planner_ASP.Controllers
 {
     public class RegisterController : Controller
     {
-        DatabaseUtility DB = new();
         private GebruikerContainer gc;
         private RankContainer rc;
 
@@ -29,13 +28,9 @@ namespace Planner_ASP.Controllers
         {
             try
             {
-                if (HttpContext.Session.GetString("Naam") != null)
-                {
-                    List<Rank> ranks = rc.GetRanks();
-                    RegisterViewModel vm = new(ranks);
-                    return View(vm);
-                }
-                return RedirectToAction("Index", "Login");
+                List<Rank> ranks = rc.GetRanks();
+                RegisterViewModel vm = new(ranks);
+                return View(vm);
             }
             catch (TemporaryExceptionDAL)
             {
@@ -60,7 +55,7 @@ namespace Planner_ASP.Controllers
                         {
                             Gebruiker g = new(registervm.Naam, registervm.GameNaam, registervm.PlannerNaam, registervm.Email, registervm.Rank1s, registervm.Rank2s, registervm.Rank3s);
                             int id = gc.Create(g, registervm.Wachtwoord);
-                            HttpContext.Session.SetString("ID", id.ToString());
+                            HttpContext.Session.SetInt32("ID", id);
                             HttpContext.Session.SetString("Naam", g.Naam);
                             return RedirectToAction("Index", "Home");
                         }

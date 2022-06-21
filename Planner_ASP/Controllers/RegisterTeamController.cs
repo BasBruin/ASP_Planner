@@ -26,7 +26,7 @@ namespace Planner_ASP.Controllers
                 List<Gebruiker> gebruikers = gc.GetAll((int)HttpContext.Session.GetInt32("ID"));
                 RegisterTeamViewModel vm = new(gebruikers);
 
-                if (HttpContext.Session.GetString("ID") != null)
+                if (HttpContext.Session.GetInt32("ID") != null)
                 {
                     return View(vm);
                 }

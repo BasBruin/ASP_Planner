@@ -10,7 +10,7 @@
         <table class="tabel">
             <tr>
                 <td>Naam</td>
-                <td><input asp-for=Naam></td>
+                <td><input asp-for=Naam required></td>
             </tr>
             <tr>
                 <td>Gebruikersnaam</td>
@@ -26,11 +26,11 @@
             </div>
             <tr>
                 <td>In-Game Gebruikersnaam</td>
-                <td><input asp-for=GameNaam></td>
+                <td><input asp-for=GameNaam required></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input asp-for=Email placeholder="jsmith@example.com"></td>
+                <td><input asp-for=Email placeholder="jsmith@example.com" required></td>
             </tr>
             <div class="col-md-12">
             @if (ViewData["ErrorEmail"] != null)
@@ -75,7 +75,7 @@
             </tr>
             <tr>
                 <td>Wachtwoord</td>
-                <td><input asp-for=Wachtwoord required type="password"></td>
+                <td><input asp-for=Wachtwoord required type="password" ></td>
             </tr>
             <tr>
                 <td>Herhaal Wachtwoord</td>

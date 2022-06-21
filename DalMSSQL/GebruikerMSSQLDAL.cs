@@ -118,7 +118,7 @@ namespace DalMSSQL
         /// </summary>
         /// <param name="ID">De ID van de gebruiker die je wilt vinden</param>
         /// <returns>GebruikerDTO van de gebruikerID die je mee hebt gegeven</returns>
-        public GebruikerDTO? FindByID(int ID)
+        public GebruikerDTO FindByID(int ID)
         {
             try
             {

@@ -76,7 +76,7 @@ namespace Planner_ASP.Controllers
             ReviewViewModel reviewViewModel = new();
             return View(reviewViewModel);
         }
-            [HttpPost]
+        [HttpPost]
         public IActionResult Review(ReviewViewModel reviewViewModel)
         {
             Review review = new(reviewViewModel.Teamreview, (int)HttpContext.Session.GetInt32("TeamID"));
