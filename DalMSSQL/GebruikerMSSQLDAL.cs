@@ -88,13 +88,14 @@ namespace DalMSSQL
         /// <param name="gebruiker">Gebruiker die je wilt verwijderen</param>
         public void Delete(int id)
         {
+            DeleteFromAllTeam(id);
             connection.Open();
             SqlCommand cmd;
             string sql = "DELETE FROM Gebruiker WHERE ID = @ID";
             cmd = new SqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@ID", id);
             cmd.ExecuteNonQuery();
-            DeleteFromAllTeam(id);
+            
         }
 
         /// <summary>
@@ -109,6 +110,7 @@ namespace DalMSSQL
             cmd = new SqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@GebruikerID", gebruikerID);
             cmd.ExecuteNonQuery();
+            connection.Close();
         }
 
         /// <summary>

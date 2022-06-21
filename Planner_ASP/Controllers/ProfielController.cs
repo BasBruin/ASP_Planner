@@ -64,7 +64,6 @@ namespace Planner_ASP.Controllers
             }
         }
 
-        [HttpPost]
         public IActionResult Delete()
         {
             gc.Delete((int)HttpContext.Session.GetInt32("ID"));
