@@ -28,7 +28,7 @@
             <td>1ste teamgenoot</td>
             <td>
                 <select asp-for=Teamspeler2>
-                    @foreach (Gebruiker gebruiker in @Model.gebruikers)
+                    @foreach (Gebruiker gebruiker in @Model.Gebruikers)
                     {
                         if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
                         {
@@ -44,7 +44,7 @@
             <td>2de teamgenoot</td>
             <td>
                 <select asp-for=Teamspeler3>
-                    @foreach (Gebruiker gebruiker in Model.gebruikers)
+                    @foreach (Gebruiker gebruiker in Model.Gebruikers)
                     {
                         if (gebruiker.PlannerNaam == Context.Session.GetString("PlannerNaam"))
                         {

@@ -13,7 +13,7 @@ namespace DalMSSQL
     {
         private readonly string connString;
         DatabaseUtility SQL;
-        SqlDataReader reader;
+        SqlDataReader? reader;
         private readonly SqlConnection connection;
 
 

@@ -4,10 +4,10 @@ namespace Planner_ASP.Models
 {
     public class RegisterTeamViewModel
     {
-        public string Naam { get; set; }
-        public string Beschrijving { get; set; }
+        public string? Naam { get; set; }
+        public string? Beschrijving { get; set; }
         public string? Plaatje { get; set; }
-        public List<Gebruiker> gebruikers { get; set; }
+        public List<Gebruiker>? Gebruikers { get; set; }
         public int Teamspeler2 { get; set; }
         public int Teamspeler3 { get; set; }
 
@@ -23,7 +23,7 @@ namespace Planner_ASP.Models
         }
         public RegisterTeamViewModel(List<Gebruiker> gebruikers)
         {
-            this.gebruikers = gebruikers;
+            this.Gebruikers = gebruikers;
         }
     }
 }

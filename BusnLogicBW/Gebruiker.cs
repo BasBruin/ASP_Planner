@@ -14,9 +14,9 @@ namespace BusnLogicBW
         public readonly string GameNaam;
         public readonly string PlannerNaam;
         public readonly string Email;
-        public readonly string Rank1s;
-        public readonly string Rank2s;
-        public readonly string Rank3s;
+        public readonly string? Rank1s;
+        public readonly string? Rank2s;
+        public readonly string? Rank3s;
 
         public Gebruiker(string naam, string gameNaam, string plannerNaam, string email,
             string rank1s, string rank2s, string rank3s, int? ID = null)

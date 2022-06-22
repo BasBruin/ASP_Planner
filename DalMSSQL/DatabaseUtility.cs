@@ -9,7 +9,7 @@ namespace DalMSSQL
 {
     public class DatabaseUtility
     {
-        private readonly string connString;
+        private readonly string? connString;
 
         public DatabaseUtility(string cs)
         {

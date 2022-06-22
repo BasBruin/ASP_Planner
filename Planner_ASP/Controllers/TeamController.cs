@@ -24,15 +24,15 @@ namespace Planner_ASP.Controllers
         {
             try
             {
-                List<Team> alleteams = new(tc.GetAll());
-                List<Team> mijnteams = new(tc.GetMyTeams((int)HttpContext.Session.GetInt32("ID")));
-                List<TeamViewModel> vms = new();
-                foreach (Team t in mijnteams)
-                {
-                    vms.Add(new TeamViewModel(t));
-                }
                 if (HttpContext.Session.GetString("ID") != null)
                 {
+                    List<Team> alleteams = new(tc.GetAll());
+                    List<Team> mijnteams = new(tc.GetMyTeams((int)HttpContext.Session.GetInt32("ID")));
+                    List<TeamViewModel> vms = new();
+                    foreach (Team t in mijnteams)
+                    {
+                        vms.Add(new TeamViewModel(t));
+                    }
                     return View(vms);
                 }
                 return RedirectToAction("Index", "Login");
@@ -73,8 +73,12 @@ namespace Planner_ASP.Controllers
         [HttpGet]
         public IActionResult Review()
         {
-            ReviewViewModel reviewViewModel = new();
-            return View(reviewViewModel);
+            if (HttpContext.Session.GetString("ID") != null)
+            {
+                ReviewViewModel reviewViewModel = new();
+                return View(reviewViewModel);
+            }
+            return RedirectToAction("Index", "Login");
         }
         [HttpPost]
         public IActionResult Review(ReviewViewModel reviewViewModel)

@@ -12,7 +12,7 @@ namespace Planner_ASP.Controllers
         private readonly IConfiguration _configuration;
 
         public RegisterTeamController(IConfiguration ic)
-        {                      
+        {
             _configuration = ic;
             tc = new(new TeamMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
             gc = new(new GebruikerMSSQLDAL(_configuration["ConnectionStrings:Connstring"]));
@@ -23,11 +23,10 @@ namespace Planner_ASP.Controllers
         {
             try
             {
-                List<Gebruiker> gebruikers = gc.GetAll((int)HttpContext.Session.GetInt32("ID"));
-                RegisterTeamViewModel vm = new(gebruikers);
-
                 if (HttpContext.Session.GetInt32("ID") != null)
                 {
+                    List<Gebruiker> gebruikers = gc.GetAll((int)HttpContext.Session.GetInt32("ID"));
+                    RegisterTeamViewModel vm = new(gebruikers);
                     return View(vm);
                 }
                 return RedirectToAction("Index", "Login");

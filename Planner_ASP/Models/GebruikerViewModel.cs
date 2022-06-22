@@ -6,7 +6,7 @@ namespace Planner_ASP.Models
     public class GebruikerViewModel
     {
         public int? ID;
-        public string Naam;
+        public string ?Naam;
         public string ?GameNaam;
         public string ?PlannerNaam;
         public string ?Email;
